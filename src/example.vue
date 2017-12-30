@@ -11,6 +11,10 @@
     <p>In order to simulate network activity, this adds a delay</p>
     <p><tab-complete-input v-model="text2" :dataSource="exampleData" /></p>
     <p>Content: {{ text2 }}</p>
+
+    <hr />
+
+    <p><a href="https://github.com/rymate1234/tab-complete-input-vue">View the source on GitHub</a></p>
   </div>
 </template>
 

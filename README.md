@@ -20,25 +20,27 @@ npm run build
 ```
 
 ## Installing
-The package will be available from npm as vue-tab-complete-input. To install, simply run
+The package is available from npm as vue-tab-complete-input. To install, simply run
 
 ``` bash
 npm install vue-tab-complete-input
 ```
+
+Note: The package currently won't work with yarn without `--ignore-engines`
 
 ## Usage
 
 Firstly, you'll need to load the component into vue:
 
 ``` JavaScript
-import TabCompleteInput from "./tab-complete-input"
+import TabCompleteInput from "vue-tab-complete-input"
 Vue.component( 'tab-complete-input', TabCompleteInput );
 ```
 
 Then, when defining a vue component it's used in, include it in the list of components:
 
 ``` JavaScript
-import TabCompleteInput from "./tab-complete-input"
+import TabCompleteInput from "vue-tab-complete-input"
 
 export default {
   components: {
@@ -53,5 +55,7 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 ``` html
 <tab-complete-input v-model="text" :dataSource="staticList" :format="getFormat" />
 ```
+
+Note: you _must_ set a `v-model` for any tab completion to work.
 
 A full example is in the src directory as example.vue

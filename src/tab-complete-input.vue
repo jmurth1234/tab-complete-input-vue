@@ -14,7 +14,6 @@ export default {
       position: 0,
       wordPos: 0,
       index: 0,
-      textValue: "",
       words: [],
       word: "",
       dynamicData: false,
@@ -29,7 +28,19 @@ export default {
       this.setData(this.dataSource);
     }
   },
-  props: ["dataSource", "format", "value"],
+  props: {
+    dataSource: {
+      default: [],
+    },
+    format: {
+      default: function (val, prev, pos) { return {word: val, prev: prev } },
+      type: Function
+    }, 
+    value: {
+      default: "", 
+      type: String
+    }
+  },
   methods: {
     setData: function (array) {
       this.trie = new TrieJS();
@@ -80,13 +91,9 @@ export default {
             prev = dupe[this.wordPos - 1];
           }
 
-          if (this.format instanceof Function) {
-            let res = this.format(completion, prev, this.wordPos);
-            dupe[this.wordPos] = res.word;
-            if (res.prev) dupe[this.wordPos - 1] = res.prev;
-          } else {
-            dupe[this.wordPos] = completion;
-          }
+          let res = this.format(completion, prev, this.wordPos);
+          dupe[this.wordPos] = res.word;
+          if (res.prev) dupe[this.wordPos - 1] = res.prev;
 
           let newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
           this.value = dupe.join(" ");

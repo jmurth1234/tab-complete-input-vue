@@ -1,12 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
+const merge = require('webpack-merge');
 
-module.exports = {
-  entry: './src/main.js',
+var common = {
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname + '/dist/'),
   },
   module: {
     rules: [
@@ -54,7 +52,33 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map'
-}
+};
+
+
+module.exports = [
+  // browser config
+  merge(common, {
+    entry: './src/main.js',
+    output: {
+      publicPath: '/dist/',
+      filename: 'build.js'
+    },
+  }),
+
+  // npm package config
+  merge(common, {
+    entry: './src/tab-complete-input.vue',
+    output: {
+      filename: 'tab-complete-input.js',
+      libraryTarget: 'umd',
+
+      // These options are useful if the user wants to load the module with AMD
+      library: 'tab-complete-input',
+      umdNamedDefine: true    
+    },
+  })
+
+]
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'

@@ -30,7 +30,8 @@ export default {
     return {
       text: '', 
       text2: '', 
-      staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"] 
+      staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
+      commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"] 
     }
   }, 
   methods: {
@@ -43,8 +44,11 @@ export default {
         }
       }
     },
-    exampleData: function () {
+    exampleData: function (word) {
       this.sleep(400);
+      if (word.startsWith("/"))
+        return this.commandList;
+
       return this.staticList;
     }, 
     getFormat: function(word, prev, position) {

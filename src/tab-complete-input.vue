@@ -55,10 +55,6 @@ export default {
         if (!this.saved) {
           this.position = this.getCursorPos();
 
-          if (this.dynamicData) {
-            this.setData(this.dataSource());
-          }
-
           this.words = this.value.split(" ");
           var lcount = 0;
           for (var i = 0; i < this.words.length; i++) {
@@ -69,6 +65,10 @@ export default {
               this.wordPos = i;
               break;
             }
+          }
+
+          if (this.dynamicData) {
+            this.setData(this.dataSource(this.word));
           }
 
           this.saved = true;

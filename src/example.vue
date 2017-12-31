@@ -1,16 +1,23 @@
 <template>
   <div id="app">
     <h1>Tab Complete Input - Demo</h1>
-    <p>Both examples use the following list of data: {{ staticList }}</p>
+    <p>All examples use the following list of data: {{ staticList }}</p>
+    <p>The dynamic examples additionally the following list of data: {{ commandList }}</p>
 
     <h2>Static List</h2>
     <p>This accesses the array directly</p>
     <p><tab-complete-input v-model="text" :dataSource="staticList" :format="getFormat" /></p>
     <p>Content: {{ text }}</p>
+
     <h2>Dynamic Data</h2>
     <p>In order to simulate network activity, this adds a delay</p>
     <p><tab-complete-input v-model="text2" :dataSource="exampleData" /></p>
     <p>Content: {{ text2 }}</p>
+
+    <h2>Dynamic Data with Promises</h2>
+    <p>The same as the previous dynamic data example, but with added promises</p>
+    <p><tab-complete-input v-model="text3" :dataSource="asyncData" /></p>
+    <p>Content: {{ text3 }}</p>
 
     <hr />
 
@@ -30,6 +37,7 @@ export default {
     return {
       text: '', 
       text2: '', 
+      text3: '', 
       staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
       commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"] 
     }
@@ -51,6 +59,21 @@ export default {
 
       return this.staticList;
     }, 
+    asyncData: function (word, position) {
+      if (word.startsWith("/") && position == 0)
+        return Promise.resolve(this.commandList).then(this.delayPromise(500));
+
+      return Promise.resolve(this.staticList).then(this.delayPromise(500));
+    }, 
+    delayPromise: function (duration) {
+      return function(...args){
+        return new Promise(function(resolve, reject){
+          setTimeout(function(){
+            resolve(...args);
+          }, duration)
+        });
+      };
+    },
     getFormat: function(word, prev, position) {
       if (position === 0 || position > 0 && prev.search(",") != -1) {
         word = word + ": ";

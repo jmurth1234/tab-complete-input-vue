@@ -48,7 +48,7 @@ export default {
         this.trie.add(element);
       });
     },
-    handleKey: function(e) {
+    handleKey: async function(e) {
       if (e.keyCode === 9) {
         console.log("tab pressed");
 
@@ -67,8 +67,14 @@ export default {
             }
           }
 
+          if (this.word != "") {
+            e.preventDefault();
+          }
+
           if (this.dynamicData) {
-            this.setData(this.dataSource(this.word, this.wordPos));
+            let data = this.dataSource(this.word, this.wordPos);
+            var array = await Promise.resolve(data);
+            this.setData(array);
           }
 
           this.saved = true;
@@ -97,6 +103,8 @@ export default {
 
           let newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
           this.value = dupe.join(" ");
+          this.updateValue(this.value);
+          this.selectRange(newPos, newPos);
         }
       } else {
         this.saved = false;

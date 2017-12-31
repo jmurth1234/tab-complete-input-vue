@@ -101,6 +101,6 @@ getFormat: function(word, prev, position) {
 
 The method returns an object with two properties, `word` for the resulting format of the current word and `prev` for the resulting format of the previous word.
 
-## `value`
+### `value`
 
-The value of the `<input>` as a string. This can be used with v-model
+The value of the `<input>` as a string. This can be used with v-model.

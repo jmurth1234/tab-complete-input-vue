@@ -26,7 +26,7 @@ The package is available from npm as vue-tab-complete-input. To install, simply 
 npm install vue-tab-complete-input
 ```
 
-Note: The package currently won't work with yarn without `--ignore-engines`
+Note: The package currently won't work with yarn without `--ignore-engines`. 
 
 ## Usage
 

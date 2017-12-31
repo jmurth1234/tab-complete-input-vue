@@ -44,9 +44,9 @@ export default {
         }
       }
     },
-    exampleData: function (word) {
+    exampleData: function (word, position) {
       this.sleep(400);
-      if (word.startsWith("/"))
+      if (word.startsWith("/") && position == 0)
         return this.commandList;
 
       return this.staticList;

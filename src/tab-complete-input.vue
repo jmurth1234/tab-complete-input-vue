@@ -68,7 +68,7 @@ export default {
           }
 
           if (this.dynamicData) {
-            this.setData(this.dataSource(this.word));
+            this.setData(this.dataSource(this.word, this.wordPos));
           }
 
           this.saved = true;

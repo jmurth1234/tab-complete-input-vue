@@ -6,17 +6,17 @@
 
     <h2>Static List</h2>
     <p>This accesses the array directly</p>
-    <p><tab-complete-input v-model="text" :dataSource="staticList" :format="getFormat" /></p>
+    <p><tab-complete-input v-model="text" :data-source="staticList" :format="getFormat" /></p>
     <p>Content: {{ text }}</p>
 
     <h2>Dynamic Data</h2>
     <p>In order to simulate network activity, this adds a delay</p>
-    <p><tab-complete-input v-model="text2" :dataSource="exampleData" /></p>
+    <p><tab-complete-input v-model="text2" :data-source="exampleData" /></p>
     <p>Content: {{ text2 }}</p>
 
     <h2>Dynamic Data with Promises</h2>
     <p>The same as the previous dynamic data example, but with added promises</p>
-    <p><tab-complete-input v-model="text3" :dataSource="asyncData" /></p>
+    <p><tab-complete-input v-model="text3" :data-source="asyncData" /></p>
     <p>Content: {{ text3 }}</p>
 
     <hr />
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import TabCompleteInput from "./tab-complete-input"
+import TabCompleteInput from "./tab-complete-input.vue"
 
 export default {
   components: {

@@ -4,7 +4,7 @@ This is a tab completable `<input>` component for Vue.js. It supports fetching d
 
 The source code is essentially a port of the [tab-complete](https://www.npmjs.com/package/tab-complete) npm package to a vue friendly format, meaning it's a single vue module and removes the jQuery dependency.
 
-### [DEMO](https://vue-tab-complete-input.now.sh/)
+### [DEMO](https://vue-tab-complete-input.now.sh//)
 
 ## Build Setup (for contributors)
 
@@ -53,7 +53,7 @@ export default {
 Now you can use it as a basic `<input>` in your html, with support for v-model with data in your vue component.
 
 ``` html
-<tab-complete-input v-model="text" :dataSource="staticList" :format="getFormat" />
+<tab-complete-input v-model="text" :data-source="staticList" :format="getFormat" />
 ```
 
 Note: you _must_ set a `v-model` for any tab completion to work.
@@ -62,7 +62,7 @@ A full example is in the src directory as example.vue
 
 ## Properties
 
-### `dataSource`
+### `data-source`
 
 This allows you to configure the data source for the tab completion. It accepts either an array of strings or a method.
 

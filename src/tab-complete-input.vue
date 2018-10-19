@@ -50,12 +50,11 @@ export default {
     },
     handleKey: async function(e) {
       if (e.keyCode === 9) {
-        console.log("tab pressed");
-
         if (!this.saved) {
           this.position = this.getCursorPos();
-
-          this.words = this.value.split(" ");
+          const newValue = this.value.slice(0, this.position) + " " + this.value.slice(this.position);
+          
+          this.words = newValue.split(" ");
           var lcount = 0;
           for (var i = 0; i < this.words.length; i++) {
             var w = this.words[i];
@@ -73,7 +72,7 @@ export default {
 
           if (this.dynamicData) {
             let data = this.dataSource(this.word, this.wordPos);
-            var array = await Promise.resolve(data);
+            var array = await data;
             this.setData(array);
           }
 
@@ -103,6 +102,7 @@ export default {
 
           let newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
           this.value = dupe.join(" ");
+          this.value = this.value.slice(0, newPos) + this.value.slice(newPos + 1)
           this.updateValue(this.value);
           this.selectRange(newPos, newPos);
         }

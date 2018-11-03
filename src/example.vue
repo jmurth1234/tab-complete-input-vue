@@ -6,18 +6,24 @@
 
     <h2>Static List</h2>
     <p>This accesses the array directly</p>
-    <p><tab-complete-input v-model="text" :data-source="staticList" :format="getFormat" /></p>
-    <p>Content: {{ text }}</p>
+    <p><tab-complete-input v-model="text[0]" :data-source="staticList" :format="getFormat" /></p>
+    <p>Content: {{ text[0] }}</p>
+
+    <h2>External Tab Example</h2>
+    <p>This demonstrates use of an external tabbing method</p>
+    <p><tab-complete-input ref='externalInput' v-model="text[1]" :data-source="staticList" :format="getFormat" /></p>
+    <button @click="tab">Tab</button>
+    <p>Content: {{ text[1] }}</p>
 
     <h2>Dynamic Data</h2>
     <p>In order to simulate network activity, this adds a delay</p>
-    <p><tab-complete-input v-model="text2" :data-source="exampleData" /></p>
-    <p>Content: {{ text2 }}</p>
+    <p><tab-complete-input v-model="text[2]" :data-source="exampleData" /></p>
+    <p>Content: {{ text[2] }}</p>
 
     <h2>Dynamic Data with Promises</h2>
     <p>The same as the previous dynamic data example, but with added promises</p>
-    <p><tab-complete-input v-model="text3" :data-source="asyncData" /></p>
-    <p>Content: {{ text3 }}</p>
+    <p><tab-complete-input v-model="text[3]" :data-source="asyncData" /></p>
+    <p>Content: {{ text[3] }}</p>
 
     <hr />
 
@@ -35,15 +41,13 @@ export default {
   name: 'app',
   data () {
     return {
-      text: '', 
-      text2: '', 
-      text3: '', 
+      text: ['', '', '', ''], 
       staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
       commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"] 
     }
   }, 
   methods: {
-    sleep: function (milliseconds) {
+    sleep (milliseconds) {
       // bad practice be here
       var start = new Date().getTime();
       for (var i = 0; i < 1e7; i++) {
@@ -52,20 +56,23 @@ export default {
         }
       }
     },
-    exampleData: function (word, position) {
+    tab (e) {
+      this.$refs.externalInput.tabComplete(e)
+    },
+    exampleData (word, position) {
       this.sleep(400);
       if (word.startsWith("/") && position == 0)
         return this.commandList;
 
       return this.staticList;
     }, 
-    asyncData: function (word, position) {
+    asyncData (word, position) {
       if (word.startsWith("/") && position == 0)
         return Promise.resolve(this.commandList).then(this.delayPromise(500));
 
       return Promise.resolve(this.staticList).then(this.delayPromise(500));
     }, 
-    delayPromise: function (duration) {
+    delayPromise (duration) {
       return function(...args){
         return new Promise(function(resolve, reject){
           setTimeout(function(){
@@ -74,7 +81,7 @@ export default {
         });
       };
     },
-    getFormat: function(word, prev, position) {
+    getFormat (word, prev, position) {
       if (position === 0 || position > 0 && prev.search(",") != -1) {
         word = word + ": ";
       } else if (position > 0 && prev.search(":") != -1) {

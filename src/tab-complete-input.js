@@ -146,4 +146,4 @@ export default {
       return this.$el.selectionStart;
     }
   }
-};
+}

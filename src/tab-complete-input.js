@@ -1,9 +1,3 @@
-<template>
-  <input type="text" v-on:keydown.tab="tabComplete" v-on:keydown="reset" v-bind:value="value" v-bind="$props"
-         v-on:input="updateValue($event.target.value)" />
-</template>
-
-<script>
 import TrieJS from "triejs";
 
 export default {
@@ -18,8 +12,33 @@ export default {
       word: "",
       dynamicData: false,
       possible: false,
-      saved: false
+      saved: false,
+      localValue: this.value
     };
+  },
+  render (h) {
+    var self = this
+    console.log(this.$listeners)
+    return h('input', {
+      ref: 'input',
+      attrs: {
+        ...self.$props
+      },
+      domProps: {
+        value: self.value
+      },
+      directives: [
+        { name: 'model', rawName: 'v-model', value: self.localValue, expression: 'value' }
+      ],
+      on: {
+        ...self.$listeners,
+        keydown: [ self.tabComplete, self.$listeners.keydown ],
+        input (event) {
+          self.localValue = event.target.value
+          self.$emit('input', event.target.value)
+        }
+      }
+    })
   },
   created () {
     this.dynamicData = this.dataSource instanceof Function;
@@ -50,9 +69,15 @@ export default {
     },
 
     async tabComplete (e) {
+      if (e && e.keyCode !== 9) {
+        this.saved = false;
+        this.index = 0;
+
+        return
+      }
       if (!this.saved) {
         this.position = this.getCursorPos();
-        const newValue = this.value.slice(0, this.position) + " " + this.value.slice(this.position);
+        const newValue = this.localValue.slice(0, this.position) + " " + this.localValue.slice(this.position);
         
         this.words = newValue.split(" ");
         var lcount = 0;
@@ -101,21 +126,15 @@ export default {
         if (res.prev) dupe[this.wordPos - 1] = res.prev;
 
         let newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
-        this.value = dupe.join(" ");
-        this.value = this.value.slice(0, newPos) + this.value.slice(newPos + 1)
-        this.updateValue(this.value);
+        this.localValue = dupe.join(" ");
+        this.localValue = this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1)
+        this.updateValue(this.localValue);
         this.selectRange(newPos, newPos);
       }
     },
 
-    reset (e) {
-      if (e.keyCode !== 9) {
-        this.saved = false;
-        this.index = 0;
-      }
-    },
-    
     updateValue (value) {
+      this.localValue = value
       this.$emit('input', value)
     }, 
 
@@ -129,4 +148,3 @@ export default {
     }
   }
 };
-</script>

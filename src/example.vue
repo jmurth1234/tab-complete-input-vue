@@ -25,6 +25,11 @@
     <p><tab-complete-input v-model="text[3]" :data-source="asyncData" /></p>
     <p>Content: {{ text[3] }}</p>
 
+    <h2>External Listener Example</h2>
+    <p>This demonstrates use of an event listener (press enter to display text) </p>
+    <p><tab-complete-input ref='externalInput' v-model="text[4]" :data-source="staticList" :format="getFormat" v-on:keydown.13="enterText" v-on:keydown="logCurrent"/></p>
+    <p>Content: {{ enteredText }}</p>
+
     <hr />
 
     <p><a href="https://github.com/rymate1234/tab-complete-input-vue">View the source on GitHub</a></p>
@@ -32,18 +37,14 @@
 </template>
 
 <script>
-import TabCompleteInput from "./tab-complete-input.vue"
-
 export default {
-  components: {
-    TabCompleteInput
-  },
   name: 'app',
   data () {
     return {
-      text: ['', '', '', ''], 
+      text: ['', '', '', '', ''], 
       staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
-      commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"] 
+      commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"],
+      enteredText: ''
     }
   }, 
   methods: {
@@ -58,6 +59,13 @@ export default {
     },
     tab (e) {
       this.$refs.externalInput.tabComplete(e)
+    },
+    enterText () {
+      this.enteredText = this.text[4]
+      this.text[4] = ''
+    },
+    logCurrent () {
+      console.log('Current Value:', this.text[4])
     },
     exampleData (word, position) {
       this.sleep(400);

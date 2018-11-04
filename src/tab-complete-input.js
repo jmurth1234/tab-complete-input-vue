@@ -18,7 +18,6 @@ export default {
   },
   render (h) {
     var self = this
-    console.log(this.$listeners)
     return h('input', {
       ref: 'input',
       attrs: {

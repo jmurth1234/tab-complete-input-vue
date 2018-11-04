@@ -1,7 +1,7 @@
 {
   "name": "vue-tab-complete-input",
   "description": "A tab completable <input> component for Vue.js",
-  "version": "1.0.9",
+  "version": "1.0.9a",
   "author": {
     "name": "Ryan",
     "email": "supermarioryan@gmail.com"

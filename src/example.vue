@@ -25,9 +25,9 @@
     <p><tab-complete-input v-model="text[3]" :data-source="asyncData" /></p>
     <p>Content: {{ text[3] }}</p>
 
-    <h2>External Listener Example</h2>
+    <h2>External Listener(s) Example</h2>
     <p>This demonstrates use of an event listener (press enter to display text) </p>
-    <p><tab-complete-input ref='externalInput' v-model="text[4]" :data-source="staticList" :format="getFormat" v-on:keydown.13="enterText" v-on:keydown="logCurrent"/></p>
+    <p><tab-complete-input ref='externalInput' v-model="text[4]" :data-source="staticList" :format="getFormat" v-on:keydown.13="enterText" v-on:keyup="logCurrent"/></p>
     <p>Content: {{ enteredText }}</p>
 
     <hr />

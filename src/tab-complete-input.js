@@ -31,7 +31,7 @@ export default {
       ],
       on: {
         ...self.$listeners,
-        keydown: [ self.tabComplete, self.$listeners.keydown ],
+        keydown: self.$listeners.keydown ? [ self.tabComplete, self.$listeners.keydown ] : self.tabComplete,
         input (event) {
           self.localValue = event.target.value
           self.$emit('input', event.target.value)

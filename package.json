@@ -10,9 +10,10 @@
   "main": "dist/tab-complete-input.js",
   "private": false,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development parcel index.html",
-    "start": "cross-env NODE_ENV=production parcel index.html",
-    "build": "cross-env NODE_ENV=production parcel build src/tab-complete-input.js --out-file dist/tab-complete-input.js"
+    "dev": "cross-env NODE_ENV=development parcel example/index.html",
+    "start": "cross-env NODE_ENV=production parcel example/index.html",
+    "build:example": "cross-env NODE_ENV=production parcel build example/index.html",
+    "build:lib": "cross-env NODE_ENV=production parcel build src/tab-complete-input.js --out-file dist/tab-complete-input.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,7 @@
   },
   "homepage": "https://github.com/rymate1234/tab-complete-input-vue",
   "dependencies": {
-    "parcel": "^1.10.1",
     "regenerator-runtime": "^0.12.1",
-    "triejs": "^0.1.5",
     "vue": "^2.5.11"
   },
   "browserslist": [
@@ -34,6 +33,7 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "parcel": "^1.10.1",
     "@vue/component-compiler-utils": "^2.2.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
@@ -43,9 +43,6 @@
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
     "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1",
-    "webpack-merge": "^4.1.1"
+    "vue-template-compiler": "^2.4.4"
   }
 }

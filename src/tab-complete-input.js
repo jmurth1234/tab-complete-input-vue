@@ -1,4 +1,4 @@
-import TrieJS from "triejs";
+import TrieJS from "./lib/trie";
 
 export default {
   name: "tab-complete-input",

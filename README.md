@@ -12,6 +12,8 @@ The source code is essentially a port of the [tab-complete](https://www.npmjs.co
 # install dependencies
 npm install
 
+# or yarn equivalent
+
 # serves the demo with hot reload at localhost:8080
 npm run dev
 
@@ -25,8 +27,6 @@ The package is available from npm as vue-tab-complete-input. To install, simply 
 ``` bash
 npm install vue-tab-complete-input
 ```
-
-Note: The package currently won't work with yarn without `--ignore-engines`. 
 
 ## Usage
 

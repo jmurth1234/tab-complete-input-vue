@@ -4,7 +4,14 @@ This is a tab completable `<input>` component for Vue.js. It supports fetching d
 
 The source code is essentially a port of the [tab-complete](https://www.npmjs.com/package/tab-complete) npm package to a vue friendly format, meaning it's a single vue module and removes the jQuery dependency.
 
-### [DEMO](https://vue-tab-complete-input.now.sh//)
+### [DEMO](https://vue-tab-complete-input.netlify.com/)
+
+## Installing
+The package is available from npm as vue-tab-complete-input. To install, simply run
+
+``` bash
+npm install vue-tab-complete-input
+```
 
 ## Build Setup (for contributors)
 
@@ -17,15 +24,14 @@ npm install
 # serves the demo with hot reload at localhost:8080
 npm run dev
 
+# optional netlify functions dev server
+npx netlify-lambda serve .
+
 # build for production with minification
-npm run build
-```
+npm run build:lib
 
-## Installing
-The package is available from npm as vue-tab-complete-input. To install, simply run
-
-``` bash
-npm install vue-tab-complete-input
+# Build site
+npm run build:example
 ```
 
 ## Usage

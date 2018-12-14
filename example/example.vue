@@ -16,12 +16,12 @@
     <p>Content: {{ text[1] }}</p>
 
     <h2>Dynamic Data</h2>
-    <p>In order to simulate network activity, this adds a delay</p>
+    <p>This simulates network activity, by adding a delay</p>
     <p><tab-complete-input v-model="text[2]" :data-source="exampleData" /></p>
     <p>Content: {{ text[2] }}</p>
 
     <h2>Dynamic Data with Promises</h2>
-    <p>The same as the previous dynamic data example, but with added promises</p>
+    <p>This uses the same data as the previous example, but gets it from a netlify api function</p>
     <p><tab-complete-input v-model="text[3]" :data-source="asyncData" /></p>
     <p>Content: {{ text[3] }}</p>
 
@@ -37,13 +37,16 @@
 </template>
 
 <script>
+import data from './data'
+
+const api = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:9000/req-example' : '/.netlify/functions/req-example'
+
 export default {
   name: 'app',
   data () {
     return {
+      ...data,
       text: ['', '', '', '', ''], 
-      staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
-      commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"],
       enteredText: ''
     }
   }, 
@@ -74,11 +77,9 @@ export default {
 
       return this.staticList;
     }, 
-    asyncData (word, position) {
-      if (word.startsWith("/") && position == 0)
-        return Promise.resolve(this.commandList).then(this.delayPromise(500));
-
-      return Promise.resolve(this.staticList).then(this.delayPromise(500));
+    async asyncData (word, position) {
+      const request = await fetch(api + `?word=${encodeURIComponent(word)}&pos=${encodeURIComponent(position)}`)
+      return request.json()
     }, 
     delayPromise (duration) {
       return function(...args){

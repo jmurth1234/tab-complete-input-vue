@@ -25,7 +25,7 @@ npm install
 npm run dev
 
 # optional netlify functions dev server
-npx netlify-lambda serve .
+npx netlify-lambda serve ./dist
 
 # build for production with minification
 npm run build:lib

@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/rymate1234/tab-complete-input-vue/issues"
   },
-  "homepage": "https://github.com/rymate1234/tab-complete-input-vue",
+  "homepage": "https://vue-tab-complete-input.netlify.com",
   "dependencies": {
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.5.11"

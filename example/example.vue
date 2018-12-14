@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import data from './data'
+import data from '../functions/data'
 
 const api = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:9000/req-example' : '/.netlify/functions/req-example'
 

@@ -1,4 +1,4 @@
-const data = require('../example/data')
+const data = require('./data')
 
 const headers = {
   "Access-Control-Allow-Origin" : "*",

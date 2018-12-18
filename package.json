@@ -1,20 +1,23 @@
 {
   "name": "vue-tab-complete-input",
   "description": "A tab completable <input> component for Vue.js",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "author": {
     "name": "Ryan",
     "email": "supermarioryan@gmail.com"
   },
   "license": "MIT",
-  "main": "dist/tab-complete-input.js",
   "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development parcel example/index.html",
     "start": "cross-env NODE_ENV=production parcel example/index.html",
     "build:example": "cross-env NODE_ENV=production parcel build example/index.html",
-    "build:lib": "cross-env NODE_ENV=production parcel build src/tab-complete-input.js --out-file dist/tab-complete-input.js"
+    "build:lib": "cross-env NODE_ENV=production microbundle"
   },
+  "main": "dist/tab-complete-input.js",
+  "umd:main": "dist/tab-complete-input.umd.js",
+  "module": "dist/tab-complete-input.mjs",
+  "source": "src/tab-complete-input.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
@@ -41,6 +44,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "microbundle": "^0.8.4",
     "netlify-lambda": "^1.1.0",
     "parcel": "^1.10.1",
     "vue-loader": "^13.0.5",

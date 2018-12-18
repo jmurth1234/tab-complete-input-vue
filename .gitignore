@@ -12,5 +12,5 @@ yarn-error.log
 dist/*
 .cache
 
-!/dist/tab-complete-input.js
-!/dist/tab-complete-input.map
+!/dist/tab-complete-input.*.js
+!/dist/tab-complete-input.*.map

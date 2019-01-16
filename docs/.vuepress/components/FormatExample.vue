@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{entryPlaceholder}}</p>
+    <p>Try tabbing these names: {{ entryPlaceholder }}</p>
     <p><tab-complete-input v-model="text" :data-source="names" /></p>
     <button v-on:click="resetNames">{{buttonText}}</button>
   </div>
@@ -15,7 +15,7 @@ export default {
   components: { TabCompleteInput },
   data () {
     return {
-      names: data.staticList,
+      names: data.staticList.sort(),
       text: '',
       buttonText: 'Change Names'
     }
@@ -25,14 +25,14 @@ export default {
     async resetNames () {
       this.buttonText = "Changing Names..."
       import('./fake-names').then(fakeNames => {
-        this.names = fakeNames.generate(20)
+        this.names = fakeNames.generate(20).sort()
         this.buttonText = "Change Names"
       })
     }
   },
   computed: {
     entryPlaceholder () {
-      return `Try tabbing these names: ${this.names.sort().join(', ')}`
+      return this.names.join(', ')
     }
   }
 }

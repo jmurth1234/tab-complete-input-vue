@@ -4,6 +4,7 @@ heroText: Vue Tab Complete Input
 tagline: A tab completable <input> component for Vue.js
 actionText: View Docs and Examples
 actionLink: /docs.html
+footer: MIT Licensed | Made by rymate1234
 ---
 
 ## Demo

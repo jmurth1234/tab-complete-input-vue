@@ -24,9 +24,10 @@ export default {
     getFormat,
     async resetNames () {
       this.buttonText = "Changing Names..."
-      const fakeNames = await import('./fake-names')
-      this.names = fakeNames.generate(20)
-      this.buttonText = "Change Names"
+      import('./fake-names').then(fakeNames => {
+        this.names = fakeNames.generate(20)
+        this.buttonText = "Change Names"
+      })
     }
   },
   computed: {

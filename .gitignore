@@ -10,7 +10,7 @@ yarn-error.log
 *.njsproj
 *.sln
 dist/*
-./docs/.vuepress/dist/*
+docs/.vuepress/dist
 .cache
 
 !/dist/tab-complete-input.js

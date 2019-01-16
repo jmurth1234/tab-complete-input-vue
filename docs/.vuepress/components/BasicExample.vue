@@ -8,31 +8,22 @@
 </template>
 
 <script>
-import { generateNames } from '../../../functions/req-example'
+import { data } from '../../../functions/req-example'
 import TabCompleteInput from '../../../src/tab-complete-input'
 
 export default {
   components: { TabCompleteInput },
   props: [ 'showText' ],
-  created () {
-    if (typeof window === 'undefined') {
-      this.names = generateNames(20)
-    }
-  },
   data() {
     return {
-      names: [],
+      names: data.staticList,
       text: ''
     }
   },
-  mounted () {
-    if (!this.names.length) {
-      this.names = generateNames(20)
-    }
-  },
   methods: { 
-    resetNames () {
-      this.names = generateNames(20)
+    async resetNames () {
+      const fakeNames = await import('./fake-names')
+      this.names = fakeNames.generate(20)
     }
   },
   computed: {

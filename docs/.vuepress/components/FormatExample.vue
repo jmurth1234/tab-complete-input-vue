@@ -7,32 +7,23 @@
 </template>
 
 <script>
-import { generateNames } from '../../../functions/req-example'
+import { generateNames, data } from '../../../functions/req-example'
 import TabCompleteInput from '../../../src/tab-complete-input'
 import { getFormat } from './shared'
 
 export default {
   components: { TabCompleteInput },
-  beforeMount () {
-    if (!window) {
-      this.names = generateNames(20)
-    }
-  },
-  data() {
+  data () {
     return {
-      names: [],
+      names: data.staticList,
       text: ''
-    }
-  },
-  mounted () {
-    if (!this.names.length) {
-      this.names = generateNames(20)
     }
   },
   methods: {
     getFormat,
-    resetNames () {
-      this.names = generateNames(20)
+    async resetNames () {
+      const fakeNames = await import('./fake-names')
+      this.names = fakeNames.generate(20)
     }
   },
   computed: {

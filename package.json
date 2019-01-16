@@ -9,10 +9,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development parcel example/index.html",
-    "start": "cross-env NODE_ENV=production parcel example/index.html",
-    "build:example": "cross-env NODE_ENV=production parcel build example/index.html",
-    "build:lib": "cross-env NODE_ENV=production microbundle"
+    "build:lib": "cross-env NODE_ENV=production microbundle",
+    "build:docs": "vuepress build docs",
+    "dev:docs": "vuepress dev docs",
+    "dev:lambda": "netlify-lambda serve ./functions/"
   },
   "main": "dist/tab-complete-input.js",
   "umd:main": "dist/tab-complete-input.umd.js",
@@ -28,7 +28,7 @@
   "homepage": "https://vue-tab-complete-input.netlify.com",
   "dependencies": {
     "regenerator-runtime": "^0.12.1",
-    "vue": "^2.5.11"
+    "vue": "^2.5.22"
   },
   "browserslist": [
     "> 1%",
@@ -43,11 +43,13 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
+    "faker": "^4.1.0",
     "file-loader": "^1.1.4",
     "microbundle": "^0.8.4",
     "netlify-lambda": "^1.1.0",
     "parcel": "^1.10.1",
     "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4"
+    "vue-template-compiler": "^2.4.4",
+    "vuepress": "^0.14.8"
   }
 }

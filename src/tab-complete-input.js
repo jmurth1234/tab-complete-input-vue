@@ -51,12 +51,22 @@ export default {
       default: [],
     },
     format: {
-      default: function (val, prev, pos) { return {word: val, prev: prev } },
+      default: (val, prev, pos) => ({ word: val, prev: prev }),
       type: Function
     }, 
     value: {
       default: "", 
       type: String
+    }
+  },
+  watch: {
+    // whenever question changes, this function will run
+    dataSource (data) {
+      this.dynamicData = data instanceof Function;
+
+      if (!this.dynamicData) {
+        this.setData(data);
+      }
     }
   },
   methods: {

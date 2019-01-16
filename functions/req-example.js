@@ -1,3 +1,7 @@
+import faker from 'faker'
+
+export const generateNames = num => new Array(num).fill('').map(faker.name.firstName)
+
 const data = {
   staticList: ["John", "Jake", "Joe", "Noah", "Emma", "Will", "William", "Andrew", "Brady", "Ethan", "Dan", "Daniel", "Danny"],
   commandList: ["/help", "/msg", "/mode", "/me", "/join", "/part", "/kick", "/quit", "/quiet"]
@@ -8,7 +12,7 @@ const headers = {
   "Access-Control-Allow-Headers": "Content-Type"
 };
 
-exports.handler = function(event, context, callback) {
+export function handler(event, context, callback) {
   // your server-side functionality
   let returnVal = data.staticList
 
@@ -23,4 +27,4 @@ exports.handler = function(event, context, callback) {
   })
 }
 
-exports.data = data
+export { data }

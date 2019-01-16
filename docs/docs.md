@@ -98,5 +98,5 @@ The method returns an object with two properties, `word` for the resulting forma
 The value of the `<input>` as a string. This must be bound using v-model.
 
 <DocContainer>
-  <BasicExample showText='true' />
+  <BasicExample :showText='true' />
 </DocContainer>

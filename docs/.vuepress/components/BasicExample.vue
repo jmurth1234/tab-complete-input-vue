@@ -1,5 +1,5 @@
 <template>
-  <div :data-list="JSON.stringify(names)">
+  <div>
     <p>{{entryPlaceholder}}</p>
     <p><tab-complete-input v-model="text" :data-source="names" /></p>
     <p v-if="showText">Bound value: {{text}}</p>

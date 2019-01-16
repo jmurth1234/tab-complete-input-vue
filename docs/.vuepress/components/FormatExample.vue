@@ -2,7 +2,7 @@
   <div>
     <p>{{entryPlaceholder}}</p>
     <p><tab-complete-input v-model="text" :data-source="names" /></p>
-    <button v-on:click="resetNames">Change Names</button>
+    <button v-on:click="resetNames">{{buttonText}}</button>
   </div>
 </template>
 
@@ -16,14 +16,17 @@ export default {
   data () {
     return {
       names: data.staticList,
-      text: ''
+      text: '',
+      buttonText: 'Change Names'
     }
   },
   methods: {
     getFormat,
     async resetNames () {
+      this.buttonText = "Changing Names..."
       const fakeNames = await import('./fake-names')
       this.names = fakeNames.generate(20)
+      this.buttonText = "Change Names"
     }
   },
   computed: {

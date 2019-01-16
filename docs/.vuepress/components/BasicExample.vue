@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :data-list="JSON.stringify(names)">
     <p>{{entryPlaceholder}}</p>
     <p><tab-complete-input v-model="text" :data-source="names" /></p>
     <p v-if="showText">Bound value: {{text}}</p>
@@ -14,10 +14,20 @@ import TabCompleteInput from '../../../src/tab-complete-input'
 export default {
   components: { TabCompleteInput },
   props: [ 'showText' ],
+  created () {
+    if (typeof window === 'undefined') {
+      this.names = generateNames(20)
+    }
+  },
   data() {
     return {
-      names: generateNames(20),
+      names: [],
       text: ''
+    }
+  },
+  mounted () {
+    if (!this.names.length) {
+      this.names = generateNames(20)
     }
   },
   methods: { 

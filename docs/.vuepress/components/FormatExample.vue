@@ -10,12 +10,23 @@
 import { generateNames } from '../../../functions/req-example'
 import TabCompleteInput from '../../../src/tab-complete-input'
 import { getFormat } from './shared'
+
 export default {
   components: { TabCompleteInput },
+  beforeMount () {
+    if (!window) {
+      this.names = generateNames(20)
+    }
+  },
   data() {
     return {
-      names: generateNames(20),
+      names: [],
       text: ''
+    }
+  },
+  mounted () {
+    if (!this.names.length) {
+      this.names = generateNames(20)
     }
   },
   methods: {

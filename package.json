@@ -37,10 +37,6 @@
   ],
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.2.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "faker": "^4.1.0",
@@ -48,8 +44,6 @@
     "microbundle": "^0.8.4",
     "netlify-lambda": "^1.1.0",
     "parcel": "^1.10.1",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "vuepress": "^0.14.8"
+    "vuepress": "^1.0.0-alpha.32"
   }
 }

@@ -37,22 +37,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-  shared()
-    border: 1px solid #ccc;
-    padding: 6px;
-    border-radius: 6px;
-    &:hover,&:focus
-      border 1px solid #3eaf7c
-  
-  input {
-    width: 100%;
-    shared()
-  }
-
-  button {
-    shared()
-  }
-</style>
-

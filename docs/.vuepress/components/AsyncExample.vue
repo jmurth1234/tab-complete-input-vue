@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>{{entryPlaceholder}}</p>
-    <p><tab-complete-input v-model="text" :data-source="asyncData" /></p>
+    <p><label for="tabInput">{{ entryPlaceholder }}</label></p>
+    <p><tab-complete-input id="tabInput" v-model="text" :data-source="names" /></p>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>Try tabbing these names: {{ entryPlaceholder }}</p>
-    <p><tab-complete-input v-model="text" :data-source="names" /></p>
+    <p><label for="tabInput">Try tabbing these names: {{ entryPlaceholder }}</label></p>
+    <p><tab-complete-input id="tabInput" v-model="text" :data-source="names" /></p>
     <p v-if="showText">Bound value: {{text}}</p>
     <button v-on:click="resetNames">{{buttonText}}</button>
   </div>

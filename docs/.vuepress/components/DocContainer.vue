@@ -3,9 +3,6 @@
 </template>
 
 <style>
-  .doc-example * {
-    box-sizing: border-box;
-  }
   .doc-example {
     padding: 10px;
     background: #eee;

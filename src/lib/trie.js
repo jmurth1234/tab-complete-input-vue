@@ -26,143 +26,140 @@
 * @class
 * @version 0.1.5
 */
-const Triejs = function(opts) {
+class Triejs {
+  constructor(opts) {
 
-  /**
-  * @private
-  * @description Options for trie implementation
-  * @type {Object}
-  */
-  this.options = {
-  
     /**
-    * @description Maximum number of items to cache per node
+    * @private
+    * @description Options for trie implementation
+    * @type {Object}
+    */
+    this.options = {
+    
+      /**
+      * @description Maximum number of items to cache per node
+      * @type {Number}
+      */
+      maxCache: 10
+
+      /**
+      * @description Whether to handle caching on node levels
+      * @type {Boolean}
+      */
+      , enableCache: true
+
+      /**
+      * @description Maintain insert ordering when adding to non cached trie
+      * @type {Boolean}
+      */
+      , insertOrder: false
+
+      /**
+      * @description Return responses from root when requests is empty
+      * @type {Boolean}
+      */
+      , returnRoot: false
+
+      /**
+      * @description Insert function for adding new items to cache
+      * @type {Function}
+      */
+      , insert: null
+
+      /**
+      * @description Sorting function for sorting items to cache
+      * @type {Function}
+      */
+      , sort: null
+
+      /**
+      * @description Clip function for removing old items from cache
+      * @type {Function}
+      */
+      , clip: null
+
+      /**
+      * @description copy function for copying data between nodes
+      * @type {Function}
+      */
+      , copy: null
+
+      /**
+      * @description Merge function to merge two data sets together
+      * @type {Function}
+      */
+      , merge: null
+    };
+
+    /**
+    * @private
+    * @description trie object
+    * @type {Object}
+    */
+    this.root = {};
+
+    /**
+    * @private
+    * @description insert order index
     * @type {Number}
     */
-    maxCache: 10
+    this.index = 0;
 
-    /**
-    * @description Whether to handle caching on node levels
-    * @type {Boolean}
-    */
-    , enableCache: true
-
-    /**
-    * @description Maintain insert ordering when adding to non cached trie
-    * @type {Boolean}
-    */
-    , insertOrder: false
-
-    /**
-    * @description Return responses from root when requests is empty
-    * @type {Boolean}
-    */
-    , returnRoot: false
-
-    /**
-    * @description Insert function for adding new items to cache
-    * @type {Function}
-    */
-    , insert: null
-
-    /**
-    * @description Sorting function for sorting items to cache
-    * @type {Function}
-    */
-    , sort: null
-
-    /**
-    * @description Clip function for removing old items from cache
-    * @type {Function}
-    */
-    , clip: null
-
-    /**
-    * @description copy function for copying data between nodes
-    * @type {Function}
-    */
-    , copy: null
-
-    /**
-    * @description Merge function to merge two data sets together
-    * @type {Function}
-    */
-    , merge: null
-  };
-
-  /**
-  * @private
-  * @description trie object
-  * @type {Object}
-  */
-  this.root = {};
-
-  /**
-  * @private
-  * @description insert order index
-  * @type {Number}
-  */
-  this.index = 0;
-
-  // mixin optional override options
-  for (var key in opts) {
-    if (opts.hasOwnProperty(key)) {
-      this.options[key] = opts[key];
-    }
-  };
-
-  if (typeof this.options.insert != 'function') {
-    this.options.insert = function(target, data) {
-      // if maintaining insert ordering add a order index on insert
-      if (this.options.insertOrder 
-        && typeof data.d === 'undefined' 
-        && typeof data.o === 'undefined') {
-        data = { d: data, o: this.index++ };
+    // mixin optional override options
+    for (const key in opts) {
+      if (opts.hasOwnProperty(key)) {
+        this.options[key] = opts[key];
       }
-      if (target && target.length) {
-        target.push(data);
-      } else {
-        target = [data];
-      }
-      return target;
     };
-  }
-  if (typeof this.options.sort != 'function') {
-    if (!this.options.insertOrder) {
-      this.options.sort = function() {
-        this.sort();
+
+    if (typeof this.options.insert != 'function') {
+      this.options.insert = function(target, data) {
+        // if maintaining insert ordering add a order index on insert
+        if (this.options.insertOrder 
+          && typeof data.d === 'undefined' 
+          && typeof data.o === 'undefined') {
+          data = { d: data, o: this.index++ };
+        }
+        if (target && target.length) {
+          target.push(data);
+        } else {
+          target = [data];
+        }
+        return target;
       };
-    } else if (this.options.insertOrder) {
-      this.options.sort = function() {
-        this.sort(function(a, b) { return a.o - b.o; });
+    }
+    if (typeof this.options.sort != 'function') {
+      if (!this.options.insertOrder) {
+        this.options.sort = function() {
+          this.sort();
+        };
+      } else if (this.options.insertOrder) {
+        this.options.sort = function() {
+          this.sort((a, b) => a.o - b.o);
+        }
+      }
+    }
+    if (typeof this.options.clip != 'function') {
+      this.options.clip = function(max) {
+        if (this.length > max) {
+          this.splice(max, this.length - max);
+        }
+      };
+    }
+    if (typeof this.options.copy != 'function') {
+      this.options.copy = data => data.slice(0)
+    }
+    if (typeof this.options.merge != 'function') {
+      this.options.merge = function(target, data, word) {
+        for (let i = 0, ii = data.length; i < ii; i++) {
+          target = this.options.insert.call(this, target, data[i]);
+          this.options.sort.call(target, word);
+          this.options.clip.call(target, this.options.maxCache);
+        }
+        return target;
       }
     }
   }
-  if (typeof this.options.clip != 'function') {
-    this.options.clip = function(max) {
-      if (this.length > max) {
-        this.splice(max, this.length - max);
-      }
-    };
-  }
-  if (typeof this.options.copy != 'function') {
-    this.options.copy = function(data) {
-      return data.slice(0);
-    }
-  }
-  if (typeof this.options.merge != 'function') {
-    this.options.merge = function(target, data, word) {
-      for (var i = 0, ii = data.length; i < ii; i++) {
-        target = this.options.insert.call(this, target, data[i]);
-        this.options.sort.call(target, word);
-        this.options.clip.call(target, this.options.maxCache);
-      }
-      return target;
-    }
-  }
-};
-
-Triejs.prototype = {
 
   /*-------------------------------------------------------------------------
   * Private Functions
@@ -174,7 +171,7 @@ Triejs.prototype = {
   * @param data {Object} Data to add to the cache
   * @private
   */
-  _addCacheData: function(curr, data) {
+  _addCacheData(curr, data) {
     if ((this.root === curr && !this.options.returnRoot) 
       || this.options.enableCache === false) {
       return false;
@@ -195,10 +192,10 @@ Triejs.prototype = {
   * @param curr {Object} current node in the trie
   * @private
   */
-  , _addSuffix: function(suffix, data, curr) {
-    var letter = suffix.charAt(0)
-      , nextSuffix = suffix.substring(1) || null
-      , opts = { $d: {} };
+  _addSuffix(suffix, data, curr) {
+    const letter = suffix.charAt(0);
+    const nextSuffix = suffix.substring(1) || null;
+    const opts = { $d: {} };
     if (nextSuffix) {
       opts.$s = nextSuffix;
     }
@@ -221,10 +218,10 @@ Triejs.prototype = {
   * @param curr {Object} current node in the trie
   * @private
   */
-  , _moveSuffix: function(suffix, data, curr) {
-    var letter = suffix.charAt(0)
-      , nextSuffix = suffix.substring(1) || null
-      , opts = { $d: {} };
+  _moveSuffix(suffix, data, curr) {
+    const letter = suffix.charAt(0);
+    const nextSuffix = suffix.substring(1) || null;
+    const opts = { $d: {} };
     if (nextSuffix) {
       opts.$s = nextSuffix;
     }
@@ -240,48 +237,48 @@ Triejs.prototype = {
   * @param node {Object} The node to get data from
   * @return {Array|Object} data results
   */
-  , _getDataAtNode: function(node, word) {
-    var data;
+  _getDataAtNode(node, word) {
+      let data;
 
-    if (this.options.enableCache) {
-      this.options.sort.call(node.$d, word);
-      data = node.$d;
-    } else {
-      data = this._getSubtree(node, word);
+      if (this.options.enableCache) {
+        this.options.sort.call(node.$d, word);
+        data = node.$d;
+      } else {
+        data = this._getSubtree(node, word);
+      }
+      if (this.options.insertOrder) {
+        data = this._stripInsertOrder(data);
+      }
+      return data ? this.options.copy(data) : undefined;
     }
-    if (this.options.insertOrder) {
-      data = this._stripInsertOrder(data);
-    }
-    return data ? this.options.copy(data) : undefined;
-  }
 
   /**
   * @description Remove the outer data later that stores insert order
   * @param data {Object} The data with insert order object wrapper
   * @return {Array} data results without insert order wrapper
   */
-  , _stripInsertOrder: function(data) {
-    if (typeof data == 'undefined') {
-      return;
+  _stripInsertOrder(data) {
+      if (typeof data == 'undefined') {
+        return;
+      }
+      const temp = [];
+      for (let i = 0, ii = data.length; i < ii; i++) {
+        temp.push(data[i].d);
+      }
+      return temp;
     }
-    var temp = [];
-    for (var i = 0, ii = data.length; i < ii; i++) {
-      temp.push(data[i].d);
-    }
-    return temp;
-  }
 
   /**
   * @description Get the subtree data of a trie traversing depth first
   * @param curr {Object} current node in the trie to get data under
   * @return {Object} data from the subtree
   */
-  , _getSubtree: function(curr, word) {
-    var res
-      , nodeArray = [curr]
-      , node;
+  _getSubtree(curr, word) {
+    let res;
+    const nodeArray = [curr];
+    let node;
     while (node = nodeArray.pop()) {
-      for (var newNode in node) {
+      for (const newNode in node) {
         if (node.hasOwnProperty(newNode)) {
           if (newNode == '$d') {
             if (typeof res == 'undefined') {
@@ -306,95 +303,95 @@ Triejs.prototype = {
   * @param word {String} word to add
   * @param data {Object} data to store under given term
   */
-  , add: function(word, data) {
-    if (typeof word != 'string') { return false; }
-    if (arguments.length == 1) { data = word; }
-    word = word.toLowerCase();
+  add(word, data) {
+      if (typeof word != 'string') { return false; }
+      if (arguments.length == 1) { data = word; }
+      word = word.toLowerCase();
 
-    var curr = this.root;
+      let curr = this.root;
 
-    for (var i = 0, ii = word.length; i < ii; i++) {
-      var letter = word.charAt(i);
-      // No letter at this level
-      if (!curr[letter]) {
-        // Current level has a suffix already so push suffix lower in trie
-        if (curr.$s) {
-          if (curr.$s == word.substring(i)) {
-            // special case where word exists already, so we avoid breaking
-            // up the substring and store both at the top level
-            if (!this._addCacheData(curr, data)) {
-              curr.$d = this.options.insert.call(this, curr.$d, data);
-              this.options.sort.call(curr.$d);
+      for (let i = 0, ii = word.length; i < ii; i++) {
+        const letter = word.charAt(i);
+        // No letter at this level
+        if (!curr[letter]) {
+          // Current level has a suffix already so push suffix lower in trie
+          if (curr.$s) {
+            if (curr.$s == word.substring(i)) {
+              // special case where word exists already, so we avoid breaking
+              // up the substring and store both at the top level
+              if (!this._addCacheData(curr, data)) {
+                curr.$d = this.options.insert.call(this, curr.$d, data);
+                this.options.sort.call(curr.$d);
+              }
+              break;
             }
+            this._moveSuffix(curr.$s, curr.$d, curr);
+            delete curr.$s;
+            if (this.options.enableCache === false) {
+              delete curr.$d;
+            }
+          }
+          // Current level has no sub letter after building suffix
+          if (!curr[letter]) {
+            this._addSuffix(word.substring(i), data, curr);
+            this._addCacheData(curr, data);
             break;
           }
-          this._moveSuffix(curr.$s, curr.$d, curr);
-          delete curr.$s;
-          if (this.options.enableCache === false) {
-            delete curr.$d;
-          }
-        }
-        // Current level has no sub letter after building suffix
-        if (!curr[letter]) {
-          this._addSuffix(word.substring(i), data, curr);
+          // add to the cache at the current node level in the trie
           this._addCacheData(curr, data);
-          break;
-        }
-        // add to the cache at the current node level in the trie
-        this._addCacheData(curr, data);
-        // if its the end of a word push possible suffixes at this node down
-        // and add data to cache at the words end
-        if (i == ii - 1) {
-          if (curr[letter].$s) {
-            this._moveSuffix(curr[letter].$s, curr[letter].$d, curr[letter]);
-            delete curr[letter].$s;
-            if (this.options.enableCache === false) {
-              delete curr[letter].$d;
-            }
-            // insert new data at current end of word node level
-            this._addSuffix(letter, data, curr);
-          } else {
-            // either add to cache or just add the data at end of word node
-            if (!this._addCacheData(curr[letter], data)) {
+          // if its the end of a word push possible suffixes at this node down
+          // and add data to cache at the words end
+          if (i == ii - 1) {
+            if (curr[letter].$s) {
+              this._moveSuffix(curr[letter].$s, curr[letter].$d, curr[letter]);
+              delete curr[letter].$s;
+              if (this.options.enableCache === false) {
+                delete curr[letter].$d;
+              }
+              // insert new data at current end of word node level
               this._addSuffix(letter, data, curr);
+            } else {
+              // either add to cache or just add the data at end of word node
+              if (!this._addCacheData(curr[letter], data)) {
+                this._addSuffix(letter, data, curr);
+              }
             }
           }
+          curr = curr[letter];
         }
-        curr = curr[letter];
-      }
-      // There is a letter and we are at the end of the word
-      else if (i == ii - 1) {
-        this._addCacheData(curr, data);
-        // either add to cache at the end of the word or just add the data
-        if (!this._addCacheData(curr[letter], data)) {
-          this._addSuffix(letter, data, curr);
+        // There is a letter and we are at the end of the word
+        else if (i == ii - 1) {
+          this._addCacheData(curr, data);
+          // either add to cache at the end of the word or just add the data
+          if (!this._addCacheData(curr[letter], data)) {
+            this._addSuffix(letter, data, curr);
+          }
         }
-      }
-      // There is a letter so traverse lower into the trie
-      else {
-        this._addCacheData(curr, data);
-        curr = curr[letter];
+        // There is a letter so traverse lower into the trie
+        else {
+          this._addCacheData(curr, data);
+          curr = curr[letter];
+        }
       }
     }
-  }
 
   /**
   * @description remove a word from the trie if there is no caching
   * @param word {String} word to remove from the trie
   */
-  , remove: function(word) {
+  remove(word) {
     if (typeof word !== 'string' || word === '' || this.options.enableCache){
       return;
     }
     word = word.toLowerCase();
-    var letter
-      , i
-      , ii
-      , curr = this.root
-      , prev
-      , prevLetter
-      , data
-      , count = 0;
+    let letter;
+    let i;
+    let ii;
+    let curr = this.root;
+    let prev;
+    let prevLetter;
+    let data;
+    let count = 0;
 
     for (i = 0, ii = word.length; i < ii; i++) {
       letter = word.charAt(i);
@@ -417,7 +414,7 @@ Triejs.prototype = {
     delete curr.$d;
     delete curr.$s;
     // enumerate all child nodes
-    for (var node in curr) {
+    for (const node in curr) {
       if (curr.hasOwnProperty(node)) {
         count++;
       }
@@ -433,52 +430,51 @@ Triejs.prototype = {
   * @param word {String} word to search for
   * @return {Boolean} whether word exists or not
   */
-  , contains: function(word) {
-    if (typeof word !== 'string' || word == '') { return false; }
-    word = word.toLowerCase();
+  contains(word) {
+      if (typeof word !== 'string' || word == '') { return false; }
+      word = word.toLowerCase();
 
-    var curr = this.root;
-    for (var i = 0, ii = word.length; i < ii; i++) {
-      var letter = word.charAt(i);
-      if (!curr[letter]) {
-        if (curr.$s && curr.$s === word.substring(i)) {
-          return true;
+      let curr = this.root;
+      for (let i = 0, ii = word.length; i < ii; i++) {
+        const letter = word.charAt(i);
+        if (!curr[letter]) {
+          if (curr.$s && curr.$s === word.substring(i)) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          curr = curr[letter];
         }
-      } else {
-        curr = curr[letter];
       }
+      return curr.$d && (typeof curr.$s === 'undefined') ? true : false;
     }
-    return curr.$d && (typeof curr.$s === 'undefined') ? true : false;
-  }
 
   /**
   * @description Get the data for a given prefix of a word
   * @param prefix {String} string of the prefix of a word
   * @return {Object} data for the given prefix
   */
-  , find: function(prefix) {
-    if (typeof prefix !== 'string') { return undefined; }
-    if (prefix == '' && !this.options.returnRoot) { return undefined; }
-    prefix = prefix.toLowerCase();
+  find(prefix) {
+      if (typeof prefix !== 'string') { return undefined; }
+      if (prefix == '' && !this.options.returnRoot) { return undefined; }
+      prefix = prefix.toLowerCase();
 
-    var curr = this.root;
-    for (var i = 0, ii = prefix.length; i < ii; i++) {
-      var letter = prefix.charAt(i);
-      if (!curr[letter]) {
-        if (curr.$s && curr.$s.indexOf(prefix.substring(i)) == 0) {
-          return this._getDataAtNode(curr, prefix);
+      let curr = this.root;
+      for (let i = 0, ii = prefix.length; i < ii; i++) {
+        const letter = prefix.charAt(i);
+        if (!curr[letter]) {
+          if (curr.$s && curr.$s.indexOf(prefix.substring(i)) == 0) {
+            return this._getDataAtNode(curr, prefix);
+          } else {
+            return undefined;
+          }
         } else {
-          return undefined;
+          curr = curr[letter];
         }
-      } else {
-        curr = curr[letter];
       }
+      return this._getDataAtNode(curr, prefix);
     }
-    return this._getDataAtNode(curr, prefix);
-  }
-};
+}
 
-//Export to CommonJS/Node format
 export default Triejs

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p><label for="tabInput">{{ entryPlaceholder }}</label></p>
-    <p><tab-complete-input id="tabInput" v-model="text" :data-source="names" /></p>
+    <p><tab-complete-input id="tabInput" v-model="text" :data-source="asyncData" /></p>
   </div>
 </template>
 

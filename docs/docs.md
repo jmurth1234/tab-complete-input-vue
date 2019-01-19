@@ -43,7 +43,7 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 
 Note: you _must_ set a `v-model` for any tab completion to work.
 
-Full examples of the components used within these docs are available in `~/docs/.vuepress/components`
+Full examples of the components used within these docs are available in this folder [`~/docs/.vuepress/components`](https://github.com/rymate1234/tab-complete-input-vue/tree/master/docs/.vuepress/components)
 
 ## Properties
 
@@ -99,4 +99,50 @@ The value of the `<input>` as a string. This must be bound using v-model.
 
 <DocContainer>
   <BasicExample :showText='true' />
+</DocContainer>
+
+## Programatically tab competing
+
+Sometimes you may want to be able to tab complete an input field without the user pressing the tab key. For instance, if they're on a mobile device, most do not have a tab button. 
+
+In order to do this, you can set a reference on the tab complete element in your vue template
+
+```html
+<tab-complete-input ref='externalInput' v-model="text" :data-source="list" />
+```
+
+You can then use that reference to perform the equivalent of pressing tab in the input box using any other method, for instance a tab button somewhere on the page. 
+
+```html
+ <button @click="tab">Tab</button>
+ 
+ <script>
+  export default {
+    tab (e) {
+      e.preventDefault()
+      this.$refs.externalInput.tabComplete()
+    },
+  }
+ </script>
+```
+
+<DocContainer>
+  <BasicExample :showTab='true' />
+</DocContainer>
+
+## Event Handlers
+
+All event handlers supported by normal input panels are supported by this component.
+
+```html
+  <tab-complete-input ref="externalInput" 
+    id="tabInput" 
+    v-model="text" 
+    :data-source="names" 
+    v-on:keydown.13="enterText" 
+    v-on:keyup="logCurrent" />
+```
+
+<DocContainer>
+  <BasicExample :testEvents='true' />
 </DocContainer>

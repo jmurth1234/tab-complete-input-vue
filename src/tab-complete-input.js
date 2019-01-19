@@ -48,7 +48,7 @@ export default {
   },
   props: {
     dataSource: {
-      default: [],
+      default: () => [],
     },
     format: {
       default: (val, prev, pos) => ({ word: val, prev: prev }),

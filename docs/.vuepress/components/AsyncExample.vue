@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="doc-example">
     <p><label for="tabInput">{{ entryPlaceholder }}</label></p>
     <p><tab-complete-input id="tabInput" v-model="text" :data-source="asyncData" /></p>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="doc-example">
     <p><label for="tabInput">Try tabbing these names: {{ entryPlaceholder }}</label></p>
     <p><tab-complete-input id="tabInput" v-model="text" :data-source="names" :format="getFormat" /></p>
     <button v-on:click="resetNames">{{buttonText}}</button>

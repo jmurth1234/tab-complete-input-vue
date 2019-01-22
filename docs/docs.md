@@ -37,9 +37,7 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 <tab-complete-input v-model="text" :data-source="list" />
 ```
 
-<DocContainer>
-  <BasicExample />
-</DocContainer>
+<BasicExample />
 
 Note: you _must_ set a `v-model` for any tab completion to work.
 
@@ -66,9 +64,7 @@ async asyncData (word, position) {
 }, 
 ```
 
-<DocContainer>
-  <AsyncExample />
-</DocContainer>
+<AsyncExample />
 
 ### `format`
 
@@ -87,9 +83,7 @@ getFormat (word, prev, position) {
 
 ```
 
-<DocContainer>
-  <FormatExample />
-</DocContainer>
+<FormatExample />
 
 The method returns an object with two properties, `word` for the resulting format of the current word and `prev` for the resulting format of the previous word.
 
@@ -97,9 +91,7 @@ The method returns an object with two properties, `word` for the resulting forma
 
 The value of the `<input>` as a string. This must be bound using v-model.
 
-<DocContainer>
-  <BasicExample :showText='true' />
-</DocContainer>
+<BasicExample :showText='true' />
 
 ## Programatically tab competing
 
@@ -126,9 +118,7 @@ You can then use that reference to perform the equivalent of pressing tab in the
  </script>
 ```
 
-<DocContainer>
-  <BasicExample :showTab='true' />
-</DocContainer>
+<BasicExample :showTab='true' />
 
 ## Event Handlers
 
@@ -143,6 +133,4 @@ All event handlers supported by normal input panels are supported by this compon
     v-on:keyup="logCurrent" />
 ```
 
-<DocContainer>
-  <BasicExample :testEvents='true' />
-</DocContainer>
+<BasicExample :testEvents='true' />

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="doc-example">
     <p><label for="tabInput">Try tabbing these names: {{ entryPlaceholder }}</label></p>
     <p :class="showTab ? 'tab' : ''">
       <tab-complete-input ref="externalInput" 

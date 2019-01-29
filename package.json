@@ -12,7 +12,8 @@
     "build:lib": "cross-env NODE_ENV=production microbundle",
     "build:docs": "vuepress build docs",
     "dev:docs": "vuepress dev docs",
-    "dev:lambda": "netlify-lambda serve ./functions/"
+    "dev:lambda": "netlify-lambda serve ./functions/",
+    "test": "jest"
   },
   "main": "dist/tab-complete-input.js",
   "umd:main": "dist/tab-complete-input.umd.js",
@@ -27,8 +28,11 @@
   },
   "homepage": "https://vue-tab-complete-input.netlify.com",
   "dependencies": {
+    "@vue/test-utils": "^1.0.0-beta.28",
+    "jest": "^24.0.0",
     "regenerator-runtime": "^0.12.1",
-    "vue": "^2.5.22"
+    "vue": "^2.5.22",
+    "vue-template-compiler": "^2.5.22"
   },
   "browserslist": [
     "> 1%",

@@ -138,7 +138,7 @@ export default {
         this.localValue = dupe.join(" ");
         this.localValue = this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1)
         this.updateValue(this.localValue);
-        this.selectRange(newPos, newPos);
+        this.$nextTick(() => this.selectRange(newPos, newPos));
       }
     },
 

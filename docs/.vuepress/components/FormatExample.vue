@@ -7,15 +7,14 @@
 </template>
 
 <script>
-import { generateNames, data } from '../../../functions/req-example'
 import TabCompleteInput from '../../../src/tab-complete-input'
-import { getFormat } from './shared'
+import { getFormat, staticList } from './shared'
 
 export default {
   components: { TabCompleteInput },
   data () {
     return {
-      names: data.staticList.sort(),
+      names: staticList.sort(),
       text: '',
       buttonText: 'Change Names'
     }

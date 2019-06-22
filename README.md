@@ -19,11 +19,14 @@ npm install vue-tab-complete-input
 # install dependencies
 yarn install
 
-# serves the docs / development environment with hot reload at localhost:8080
-yarn dev:docs
+# serves the docs / development environment via `netlify dev` at localhost:8888
+yarn dev 
 
-# optional netlify functions dev server
-yarn dev:lambda 
+# run linter and test suite
+yarn test 
+
+# run linter to fix 
+yarn fix 
 
 # build lib for production with minification
 npm run build:lib

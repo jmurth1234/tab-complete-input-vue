@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import { data } from '../../../functions/req-example'
 import TabCompleteInput from '../../../src/tab-complete-input'
+import { staticList } from './shared'
 
 export default {
   components: { TabCompleteInput },
   props: [ 'showText', 'showTab', 'testEvents' ],
   data() {
     return {
-      names: data.staticList.sort(),
+      names: staticList.sort(),
       text: '',
       enteredText: '',
       buttonText: 'Change Names'

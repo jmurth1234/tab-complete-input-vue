@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import { data } from '../../../functions/req-example'
+import { staticList } from './shared'
 import TabCompleteInput from '../../../src/tab-complete-input'
 
-const api = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:9000/req-example' : '/.netlify/functions/req-example'
+const api = '/.netlify/functions/get-names'
 
 export default {
   components: { TabCompleteInput },
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     entryPlaceholder () {
-      return `Try tabbing these names: ${data.staticList.sort().join(', ')}`
+      return `Try tabbing these names: ${staticList.sort().join(', ')}`
     }
   }
 }

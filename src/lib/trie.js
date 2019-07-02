@@ -374,56 +374,6 @@ class Triejs {
   }
 
   /**
-   * @description remove a word from the trie if there is no caching
-   * @param word {String} word to remove from the trie
-   */
-  remove(word) {
-    if (typeof word !== 'string' || word === '' || this.options.enableCache) {
-      return
-    }
-    word = word.toLowerCase()
-    let letter
-    let i
-    let ii
-    let curr = this.root
-    let prev
-    let prevLetter
-    let data
-    let count = 0
-
-    for (i = 0, ii = word.length; i < ii; i++) {
-      letter = word.charAt(i)
-      if (!curr[letter]) {
-        if (curr.$s && curr.$s === word.substring(i)) {
-          break // word is at this leaf node
-        } else {
-          return // word not in the trie
-        }
-      } else {
-        prev = curr
-        prevLetter = letter
-        curr = curr[letter]
-      }
-    }
-    data = this.options.copy(curr.$d)
-    if (this.options.insertOrder) {
-      data = this._stripInsertOrder(data)
-    }
-    delete curr.$d
-    delete curr.$s
-    // enumerate all child nodes
-    for (const node in curr) {
-      if (curr.hasOwnProperty(node)) {
-        count++
-      }
-    }
-    if (!count) {
-      delete prev[prevLetter] // nothing left at this level so remove it
-    }
-    return data
-  }
-
-  /**
    * @description see if a word has been added to the trie
    * @param word {String} word to search for
    * @return {Boolean} whether word exists or not

@@ -4,7 +4,7 @@ export default {
   name: 'tab-complete-input',
   data() {
     return {
-      trie: {},
+      trie: new TrieJS(),
       position: 0,
       wordPos: 0,
       index: 0,
@@ -67,7 +67,7 @@ export default {
     }
   },
   watch: {
-    // whenever question changes, this function will run
+    // whenever dataSource changes, this function will run
     dataSource(data) {
       this.dynamicData = data instanceof Function
 

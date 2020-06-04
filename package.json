@@ -1,7 +1,7 @@
 {
   "name": "vue-tab-complete-input",
   "description": "A tab completable <input> component for Vue.js",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "author": {
     "name": "Ryan",
     "email": "supermarioryan@gmail.com"
@@ -24,7 +24,7 @@
   "main": "dist/tab-complete-input.js",
   "umd:main": "dist/tab-complete-input.umd.js",
   "module": "dist/tab-complete-input.mjs",
-  "source": "src/tab-complete-input.js",
+  "source": "src/tab-complete-input.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
@@ -34,7 +34,7 @@
   },
   "homepage": "https://vue-tab-complete-input.netlify.com",
   "peerDependencies": {
-    "vue": "^2.5.22"
+    "vue": "^2.6.11"
   },
   "browserslist": [
     "> 1%",

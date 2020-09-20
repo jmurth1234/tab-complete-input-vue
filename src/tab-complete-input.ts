@@ -22,10 +22,14 @@ export default Vue.extend({
       possible: false,
       saved: false,
       localValue: this.value
-    }
+    } as any
   },
   render(h) {
-    var self = this
+    const self: any = this
+    const keydown = self.$listeners.keydown
+      ? [self.tabComplete, self.$listeners.keydown]
+      : self.tabComplete
+
     return h('input', {
       ref: 'input',
       attrs: {
@@ -43,10 +47,8 @@ export default Vue.extend({
       ],
       on: {
         ...self.$listeners,
-        keydown: self.$listeners.keydown
-          ? [self.tabComplete, self.$listeners.keydown]
-          : self.tabComplete,
-        input(event) {
+        keydown,
+        input(event: any) {
           self.localValue = event.target.value
           self.$emit('input', event.target.value)
         }
@@ -84,14 +86,14 @@ export default Vue.extend({
     }
   },
   methods: {
-    setData(array) {
+    setData(array: string[]) {
       this.trie = new TrieJS()
       array.forEach(element => {
         this.trie.add(element)
       })
     },
 
-    async tabComplete(e) {
+    async tabComplete(e: KeyboardEvent) {
       if (e && e.keyCode !== 9) {
         this.saved = false
         this.index = 0
@@ -160,12 +162,12 @@ export default Vue.extend({
       }
     },
 
-    updateValue(value) {
+    updateValue(value: string) {
       this.localValue = value
       this.$emit('input', value)
     },
 
-    selectRange(start, end) {
+    selectRange(start: number, end: number) {
       this.$el.focus()
       this.$el.setSelectionRange(start, end)
     },

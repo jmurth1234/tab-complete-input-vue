@@ -3,25 +3,14 @@ interface FormatResult {
     word: String;
     prev: String;
 }
-declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
-    trie: any;
-    position: number;
-    wordPos: number;
-    index: number;
-    words: any[];
-    word: string;
-    dynamicData: boolean;
-    possible: boolean;
-    saved: boolean;
-    localValue: string;
-}, {
-    setData(array: any): void;
-    tabComplete(e: any): Promise<void>;
-    updateValue(value: any): void;
-    selectRange(start: any, end: any): void;
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, any, {
+    setData(array: string[]): void;
+    tabComplete(e: KeyboardEvent): Promise<void>;
+    updateValue(value: string): void;
+    selectRange(start: number, end: number): void;
     getCursorPos(): any;
 }, unknown, {
-    dataSource: any[];
+    dataSource: never[];
     format: FormatResult | ((word: String, prev: String, pos: Number) => FormatResult);
     value: string;
 }>;

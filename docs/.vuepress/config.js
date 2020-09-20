@@ -13,6 +13,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    [
+      'vuepress-plugin-typescript'
+    ],
+  ],
   chainWebpack: (config) => {
     // TODO: https://github.com/vuejs/vuepress/issues/1623 - Support IE 10-11
     //

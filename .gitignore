@@ -9,7 +9,6 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
-dist/*
 docs/.vuepress/dist
 .cache
 

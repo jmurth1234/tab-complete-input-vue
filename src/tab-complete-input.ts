@@ -1,6 +1,14 @@
 import TrieJS from './lib/trie'
+import Vue, { PropType } from 'vue'
 
-export default {
+interface FormatResult {
+  word: String
+  prev: String
+}
+
+const FormatFunction = (word: String, prev: String, pos: Number): FormatResult => ({ word, prev })
+
+export default Vue.extend({
   name: 'tab-complete-input',
   data() {
     return {
@@ -29,7 +37,6 @@ export default {
       directives: [
         {
           name: 'model',
-          rawName: 'v-model',
           value: self.localValue,
           expression: 'value'
         }
@@ -58,8 +65,8 @@ export default {
       default: () => []
     },
     format: {
-      default: (word, prev, pos) => ({ word, prev, pos }),
-      type: Function
+      default: FormatFunction,
+      type: Function as PropType<typeof FormatFunction>
     },
     value: {
       default: '',
@@ -167,4 +174,4 @@ export default {
       return this.$el.selectionStart
     }
   }
-}
+})

@@ -11,6 +11,7 @@
   "scripts": {
     "build:lib": "cross-env NODE_ENV=production microbundle",
     "build:docs": "vuepress build docs",
+    "dev:docs": "vuepress dev docs",
     "dev": "netlify dev",
     "pretest": "npm-run-all lint:check:*",
     "fix": "npm-run-all lint:fix:*",
@@ -51,14 +52,16 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-vue": "^5.2.2",
-    "faker": "^4.1.0",
+    "faker": "^5.1.0",
     "file-loader": "^1.1.4",
     "jest": "^24.7.1",
     "jest-junit": "^6.3.0",
-    "microbundle": "^0.8.4",
-    "netlify-cli": "^2.11.23",
-    "netlify-lambda": "^1.1.0",
+    "microbundle": "^0.12.3",
+    "netlify-cli": "^2.63.2",
+    "netlify-lambda": "^2.0.1",
     "npm-run-all": "^4.1.5",
-    "vuepress": "^1.0.2"
+    "stylus": "^0.54.8",
+    "stylus-loader": "^3.0.2",
+    "vuepress": "^1.5.4"
   }
 }

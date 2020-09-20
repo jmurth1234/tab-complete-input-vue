@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import TabCompleteInput from '../../../src/tab-complete-input'
+import TabCompleteInput from '../../../dist/tab-complete-input'
 import { getFormat, staticList } from './shared'
 
 export default {

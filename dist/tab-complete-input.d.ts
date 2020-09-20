@@ -3,7 +3,7 @@ interface FormatResult {
     word: String;
     prev: String;
 }
-declare const _default: import("vue").VueConstructor<{
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, {
     trie: any;
     position: number;
     wordPos: number;
@@ -14,15 +14,15 @@ declare const _default: import("vue").VueConstructor<{
     possible: boolean;
     saved: boolean;
     localValue: string;
-} & {
+}, {
     setData(array: any): void;
     tabComplete(e: any): Promise<void>;
     updateValue(value: any): void;
     selectRange(start: any, end: any): void;
     getCursorPos(): any;
-} & {
+}, unknown, {
     dataSource: any[];
     format: FormatResult | ((word: String, prev: String, pos: Number) => FormatResult);
     value: string;
-} & Vue>;
+}>;
 export default _default;

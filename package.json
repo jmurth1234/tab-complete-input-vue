@@ -21,7 +21,6 @@
   "umd:main": "dist/tab-complete-input.umd.js",
   "module": "dist/tab-complete-input.mjs",
   "source": "src/components/tab-complete-input.ts",
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
@@ -30,8 +29,6 @@
     "url": "https://github.com/rymate1234/tab-complete-input-vue/issues"
   },
   "homepage": "https://vue-tab-complete-input.netlify.com",
-
-
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",

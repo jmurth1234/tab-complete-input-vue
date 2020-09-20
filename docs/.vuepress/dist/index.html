@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vue Tab Complete Input</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="A tab completable <input> component for Vue.js ">
+    <link rel="preload" href="/assets/css/0.styles.ca90525c.css" as="style"><link rel="preload" href="/assets/js/app.fad7acf5.js" as="script"><link rel="preload" href="/assets/js/4.96f6d69c.js" as="script"><link rel="preload" href="/assets/js/10.54d2b204.js" as="script"><link rel="preload" href="/assets/js/5.b0c25095.js" as="script"><link rel="prefetch" href="/assets/js/1.1339b823.js"><link rel="prefetch" href="/assets/js/11.45204126.js"><link rel="prefetch" href="/assets/js/2.45d53dbb.js"><link rel="prefetch" href="/assets/js/6.467f2bc2.js"><link rel="prefetch" href="/assets/js/7.7e35df19.js"><link rel="prefetch" href="/assets/js/8.922abd58.js"><link rel="prefetch" href="/assets/js/9.a0c3ffc9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ca90525c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" aria-current="page" class="home-link router-link-exact-active router-link-active"><!----> <span class="site-name">Vue Tab Complete Input</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Home
+</a></div><div class="nav-item"><a href="/docs.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="https://github.com/rymate1234/tab-complete-input-vue" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Home
+</a></div><div class="nav-item"><a href="/docs.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="https://github.com/rymate1234/tab-complete-input-vue" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <!----> </aside> <main aria-labelledby="main-title" class="home"><header class="hero"><!----> <h1 id="main-title">
+      Vue Tab Complete Input
+    </h1> <p class="description">
+      A tab completable &lt;input&gt; component for Vue.js
+    </p> <p class="action"><a href="/docs.html" class="nav-link action-button">
+  View Docs and Examples
+</a></p></header> <!----> <div class="theme-default-content custom content__default"><h2 id="demo"><a href="#demo" aria-hidden="true" class="header-anchor">#</a> Demo</h2> <div class="doc-example" data-v-637e4a9d><p data-v-637e4a9d><label for="tabInput" data-v-637e4a9d>Try tabbing these names: Andrew, Brady, Dan, Daniel, Danny, Emma, Ethan, Jake, Joe, John, Noah, Will, William</label></p> <p data-v-637e4a9d><input dataSource="Andrew,Brady,Dan,Daniel,Danny,Emma,Ethan,Jake,Joe,John,Noah,Will,William" format="function _default(t, e, i) {
+        return {
+          word: t,
+          prev: e
+        };
+      }" value="" id="tabInput" data-v-637e4a9d> <!----></p> <!----> <button data-v-637e4a9d>Change Names</button></div> <h2 id="install"><a href="#install" aria-hidden="true" class="header-anchor">#</a> Install</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>yarn add vue-tab-complete-input
+</code></pre></div><h2 id="include"><a href="#include" aria-hidden="true" class="header-anchor">#</a> Include</h2> <div class="language-html extra-class"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tab-complete-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:data-source</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>list<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script language-javascript">
+<span class="token keyword">import</span> TabCompleteInput <span class="token keyword">from</span> <span class="token string">&quot;vue-tab-complete-input&quot;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  components<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    TabCompleteInput
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      list<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      text<span class="token punctuation">:</span> <span class="token string">''</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div></div> <div class="footer">
+    MIT Licensed | Made by rymate1234
+  </div></main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.fad7acf5.js" defer></script><script src="/assets/js/4.96f6d69c.js" defer></script><script src="/assets/js/10.54d2b204.js" defer></script><script src="/assets/js/5.b0c25095.js" defer></script>
+  </body>
+</html>

@@ -63,7 +63,7 @@ function isOrdered(data: Ordered | any): data is Ordered {
  * @class
  * @version 0.1.5
  */
-class Triejs {
+class TrieJS {
   private options: Options | Methods = defaultOptions;
   private root: Data = {};
   private index = 0;

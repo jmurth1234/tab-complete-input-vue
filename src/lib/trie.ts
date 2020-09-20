@@ -143,7 +143,7 @@ class TrieJS {
    * @param data {Object} Data to add to the cache
    * @private
    */
-  _addCacheData(curr: Data, data: Data) {
+  private _addCacheData(curr: Data, data: Data) {
     if (
       (this.root === curr && !this.options.returnRoot) ||
       this.options.enableCache === false
@@ -166,7 +166,7 @@ class TrieJS {
    * @param curr {Object} current node in the trie
    * @private
    */
-  _addSuffix(suffix: string, data: Data, curr: Data) {
+  private _addSuffix(suffix: string, data: Data, curr: Data) {
     const letter = suffix.charAt(0);
     const nextSuffix = suffix.substring(1) || null;
     const opts: Data = { $d: {} };
@@ -192,7 +192,7 @@ class TrieJS {
    * @param curr {Object} current node in the trie
    * @private
    */
-  _moveSuffix(suffix: string, data: Data, curr: Data) {
+  private _moveSuffix(suffix: string, data: Data, curr: Data) {
     const letter = suffix.charAt(0);
     const nextSuffix = suffix.substring(1) || null;
     const opts: Data = { $d: {} };
@@ -211,7 +211,7 @@ class TrieJS {
    * @param node {Object} The node to get data from
    * @return {Array|Object} data results
    */
-  _getDataAtNode(node: Data, word: string) {
+  private _getDataAtNode(node: Data, word: string) {
     let data;
 
     if (this.options.enableCache) {
@@ -231,7 +231,7 @@ class TrieJS {
    * @param data {Object} The data with insert order object wrapper
    * @return {Array} data results without insert order wrapper
    */
-  _stripInsertOrder(data: Ordered[]) {
+  private _stripInsertOrder(data: Ordered[]) {
     if (typeof data == "undefined") {
       return;
     }
@@ -247,7 +247,7 @@ class TrieJS {
    * @param curr {Object} current node in the trie to get data under
    * @return {Object} data from the subtree
    */
-  _getSubtree(curr: Data, word: string) {
+  private _getSubtree(curr: Data, word: string) {
     let res: Data = [];
     const nodeArray = [curr];
     let node;
@@ -408,4 +408,4 @@ class TrieJS {
   }
 }
 
-export default Triejs;
+export default TrieJS;

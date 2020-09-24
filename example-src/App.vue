@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TabInput, { FormatFunction } from "./components/tab-complete-input";
+import TabInput, { FormatFunction } from "../src/tab-complete-input";
 
 const staticList = [
   "John",

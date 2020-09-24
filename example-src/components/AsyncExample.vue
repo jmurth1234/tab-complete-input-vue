@@ -7,7 +7,7 @@
 
 <script>
 import { staticList } from './shared'
-import TabCompleteInput from '../../../dist/tab-complete-input'
+import TabCompleteInput from '../tab-complete-input'
 
 const api = '/.netlify/functions/get-names'
 

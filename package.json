@@ -9,19 +9,20 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve ./example-src/main.ts",
+    "build": "vue-cli-service build ./example-src/main.ts",
     "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib --name tab-complete-input-vue-next src/components/tab-complete-input.ts",
+    "build:lib": "vue-cli-service build --target lib --name vue-tab-complete-input lib/tab-complete-input.ts",
     "build:bundle": "microbundle"
   },
   "peerDependencies": {
     "vue": "^3.0.0-0"
   },
-  "main": "dist/tab-complete-input.js",
-  "umd:main": "dist/tab-complete-input.umd.js",
-  "module": "dist/tab-complete-input.mjs",
-  "source": "src/components/tab-complete-input.ts",
+  "source": "src/tab-complete-input.ts",
+  "main": "dist/tab-complete-input.umd.js",
+  "module": "dist/tab-complete-input.modern.module.js",
+  "unpkg": "dist/tab-complete-input.umd.js",
+  "types": "dist/tab-complete-input.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
@@ -48,5 +49,8 @@
     "microbundle": "^0.12.3",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-0"
+  },
+  "dependencies": {
+    "faker": "^5.1.0"
   }
 }

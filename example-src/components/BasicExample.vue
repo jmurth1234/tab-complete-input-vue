@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TabCompleteInput from '../../../dist/tab-complete-input'
+import TabCompleteInput from '../tab-complete-input'
 import { staticList } from './shared'
 
 export default {

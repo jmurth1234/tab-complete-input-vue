@@ -16,6 +16,7 @@
     ],
     "paths": {
       "@/*": [
+        "example-src/*",
         "src/*"
       ]
     },
@@ -27,9 +28,10 @@
     ]
   },
   "include": [
+    "example-src/**/*.ts",
+    "example-src/**/*.tsx",
+    "example-src/**/*.vue",
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],

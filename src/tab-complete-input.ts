@@ -1,4 +1,4 @@
-import TrieJS from "../lib/trie";
+import TrieJS from "./trie";
 import { defineComponent, h, PropType } from "vue";
 
 interface FormatResult {

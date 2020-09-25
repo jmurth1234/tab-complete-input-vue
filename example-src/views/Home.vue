@@ -1,19 +1,15 @@
 <template>
   <div>
-    <TabInput
-      id="tabInput"
-      class="form-input"
-      v-model="msg"
-      :data-source="staticList"
-      :format="getFormat"
-    />
-    <p>{{ msg }}</p>
+    <h1>Vue Tab Complete Input</h1>
+
+    <BasicExample />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import TabInput, { FormatFunction } from "../../src/tab-complete-input";
+import BasicExample from "../components/BasicExample.vue";
+import { FormatFunction } from "../../src/tab-complete-input";
 
 const staticList = [
   "John",
@@ -44,16 +40,7 @@ const getFormat: FormatFunction = (word, prev, position) => {
 export default defineComponent({
   name: "App",
   components: {
-    TabInput
-  },
-  data() {
-    return {
-      msg: "Welcome to Your Vue.js + TypeScript Demo of Vue Tab Complete Input",
-      staticList
-    };
-  },
-  methods: {
-    getFormat
+    BasicExample
   }
 });
 </script>
@@ -63,27 +50,16 @@ div {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   display: flex;
   flex-direction: column;
-  align-content: center;
-  justify-content: center;
   max-width: 800px;
   margin: 0 auto;
   margin-top: 60px;
 }
 
-input {
-  width: auto;
-  padding: 10px;
-  margin-bottom: 10px;
-  text-align: center;
-  @apply border-solid border rounded p-2 shadow-inner;
-}
-
-input:focus {
-  @apply shadow-outline;
+h1 {
+  @apply mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
 }
 
 </style>

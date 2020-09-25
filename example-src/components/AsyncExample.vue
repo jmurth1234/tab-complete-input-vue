@@ -1,33 +1,45 @@
 <template>
   <div class="doc-example">
-    <p><label for="tabInput">{{ entryPlaceholder }}</label></p>
-    <p><tab-complete-input id="tabInput" v-model="text" :data-source="asyncData" /></p>
+    <p>
+      <label for="tabInput">{{ entryPlaceholder }}</label>
+    </p>
+    <p>
+      <tab-complete-input
+        id="tabInput"
+        v-model="text"
+        :data-source="asyncData"
+      />
+    </p>
   </div>
 </template>
 
 <script>
-import { staticList } from './shared'
-import TabCompleteInput from '../tab-complete-input'
+import { staticList } from "./shared";
+import TabCompleteInput from "../../src/tab-complete-input";
 
-const api = '/.netlify/functions/get-names'
+const api = "/.netlify/functions/get-names";
 
 export default {
   components: { TabCompleteInput },
   data() {
     return {
-      text: ''
-    }
+      text: ""
+    };
   },
-  methods: { 
-    async asyncData (word, position) {
-      const request = await fetch(api + `?word=${encodeURIComponent(word)}&pos=${encodeURIComponent(position)}`)
-      return request.json()
-    }, 
+  methods: {
+    async asyncData(word, position) {
+      const request = await fetch(
+        `${api}?word=${encodeURIComponent(word)}&pos=${encodeURIComponent(
+          position
+        )}`
+      );
+      return request.json();
+    }
   },
   computed: {
-    entryPlaceholder () {
-      return `Try tabbing these names: ${staticList.sort().join(', ')}`
+    entryPlaceholder() {
+      return `Try tabbing these names: ${staticList.sort().join(", ")}`;
     }
   }
-}
+};
 </script>

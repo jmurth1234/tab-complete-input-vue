@@ -1,3 +1,4 @@
-import faker from 'faker'
+import faker from "faker";
 
-export const generate = num => new Array(num).fill('').map(faker.name.firstName)
+export const generate = (num: number): string[] =>
+  new Array<string>(num).fill("").map(() => faker.name.firstName());

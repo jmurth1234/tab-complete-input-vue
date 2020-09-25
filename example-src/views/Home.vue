@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="home">
     <h1>Vue Tab Complete Input</h1>
+    <a>View the Docs</a>
 
+    <h2>Example</h2>
     <BasicExample />
   </div>
 </template>
@@ -9,33 +11,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BasicExample from "../components/BasicExample.vue";
-import { FormatFunction } from "../../src/tab-complete-input";
-
-const staticList = [
-  "John",
-  "Jake",
-  "Joe",
-  "Noah",
-  "Emma",
-  "Will",
-  "William",
-  "Andrew",
-  "Brady",
-  "Ethan",
-  "Dan",
-  "Daniel",
-  "Danny"
-];
-
-const getFormat: FormatFunction = (word, prev, position) => {
-  if (position === 0 || (position > 0 && prev.search(",") !== -1)) {
-    word = word + ": ";
-  } else if (position > 0 && prev.search(":") !== -1) {
-    word = word + ": ";
-    prev = prev.replace(":", ",");
-  }
-  return { word, prev };
-};
 
 export default defineComponent({
   name: "App",
@@ -46,20 +21,43 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-div {
+.home {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   display: flex;
   flex-direction: column;
+
   max-width: 800px;
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 h1 {
-  @apply mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
+  text-align: center;
+  @apply my-8 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
+}
+
+h2 {
+  @apply mt-8 text-2xl leading-8 font-extrabold tracking-tight text-gray-900;
+}
+
+a {
+  @apply bg-indigo-600 px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out inline;
+}
+
+a:hover {
+  @apply bg-indigo-500;
+}
+
+a:active {
+  @apply bg-indigo-700;
+}
+
+a:focus {
+  @apply border-indigo-700 outline-none shadow-outline-indigo;
 }
 
 </style>

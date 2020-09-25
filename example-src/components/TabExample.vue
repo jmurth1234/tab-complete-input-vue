@@ -5,7 +5,7 @@
         Try tabbing these names: {{ entryPlaceholder }}
       </label>
     </p>
-    <div :class="showTab ? 'tab' : ''">
+    <div class="tab">
       <tab-complete-input
         ref="externalInput"
         id="tabInput"
@@ -16,9 +16,7 @@
       />
       <button @click="tab" v-if="showTab">Tab</button>
     </div>
-    <p v-if="showText || testEvents">
-      Bound value: {{ testEvents ? enteredText : text }}
-    </p>
+
     <button v-on:click="resetNames">{{ buttonText }}</button>
   </div>
 </template>

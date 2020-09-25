@@ -5,20 +5,9 @@
         Try tabbing these names: {{ entryPlaceholder }}
       </label>
     </p>
-    <div :class="showTab ? 'tab' : ''">
-      <tab-complete-input
-        ref="externalInput"
-        id="tabInput"
-        v-model="text"
-        :data-source="names"
-        v-on:keydown="enterText"
-        v-on:keyup="logCurrent"
-      />
-      <button @click="tab" v-if="showTab">Tab</button>
-    </div>
-    <p v-if="showText || testEvents">
-      Bound value: {{ testEvents ? enteredText : text }}
-    </p>
+
+    <tab-complete-input id="tabInput" v-model="text" :data-source="names" />
+
     <button v-on:click="resetNames">{{ buttonText }}</button>
   </div>
 </template>
@@ -29,7 +18,6 @@ import { staticList } from "./shared";
 
 export default {
   components: { TabCompleteInput },
-  props: ["showText", "showTab", "testEvents"],
   data() {
     return {
       names: staticList.sort(),
@@ -45,19 +33,6 @@ export default {
         this.names = fakeNames.generate(20).sort();
         this.buttonText = "Change Names";
       });
-    },
-    tab(e) {
-      e.preventDefault();
-      this.$refs.externalInput.tabComplete();
-    },
-    enterText() {
-      if (!this.testEvents) return;
-      this.enteredText = this.text;
-      this.text = "";
-    },
-    logCurrent() {
-      if (!this.testEvents) return;
-      console.log("Current Value:", this.text);
     }
   },
   computed: {
@@ -70,7 +45,7 @@ export default {
 
 <style lang="postcss" scoped>
 p {
-  @apply my-2 text-base py-2;
+  @apply mb-2 text-base pb-2;
 }
 
 .tab {

@@ -1,56 +1,58 @@
 {
   "name": "vue-tab-complete-input",
-  "description": "A tab completable <input> component for Vue.js",
   "version": "2.0.0-next",
+  "private": false,
+  "description": "A tab completable <input> component for Vue.js",
   "author": {
     "name": "Ryan",
     "email": "supermarioryan@gmail.com"
   },
-  "license": "MIT",
-  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve ./example-src/main.ts",
     "build": "vue-cli-service build ./example-src/main.ts",
     "lint": "vue-cli-service lint",
-    "build:lib": "vue-cli-service build --target lib --name vue-tab-complete-input lib/tab-complete-input.ts",
-    "build:bundle": "microbundle"
+    "build:bundle": "microbundle",
+    "build:lib": "vue-cli-service build --target lib --name vue-tab-complete-input lib/tab-complete-input.ts"
   },
-  "peerDependencies": {
-    "vue": "^3.0.0-0"
-  },
-  "source": "src/tab-complete-input.ts",
   "main": "dist/tab-complete-input.umd.js",
   "module": "dist/tab-complete-input.modern.module.js",
   "unpkg": "dist/tab-complete-input.umd.js",
-  "types": "dist/tab-complete-input.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
+  "dependencies": {
+    "faker": "^5.1.0",
+    "vue-router": "^4.0.0-0"
   },
-  "bugs": {
-    "url": "https://github.com/rymate1234/tab-complete-input-vue/issues"
-  },
-  "homepage": "https://vue-tab-complete-input.netlify.com",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.6",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0-0",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
+    "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^7.0.0-0",
+    "microbundle": "^0.12.3",
     "prettier": "^1.19.1",
     "typescript": "~3.9.3",
-    "microbundle": "^0.12.3",
-    "core-js": "^3.6.5",
     "vue": "^3.0.0-0"
   },
-  "dependencies": {
-    "faker": "^5.1.0"
-  }
+  "peerDependencies": {
+    "vue": "^3.0.0-0"
+  },
+  "bugs": {
+    "url": "https://github.com/rymate1234/tab-complete-input-vue/issues"
+  },
+  "homepage": "https://vue-tab-complete-input.netlify.com",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
+  },
+  "source": "src/tab-complete-input.ts",
+  "types": "dist/tab-complete-input.d.ts"
 }

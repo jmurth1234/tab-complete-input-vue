@@ -53,7 +53,7 @@ export default defineComponent({
       word: "",
       possible: false,
       saved: false,
-      localValue: this.modelValue,
+      localValue: this.modelValue
     } as Data;
   },
 
@@ -72,7 +72,7 @@ export default defineComponent({
       onInput(event: InputEvent) {
         const elem = event.target as HTMLInputElement;
         self.updateValue(elem.value);
-      },
+      }
     });
   },
 
@@ -85,15 +85,15 @@ export default defineComponent({
   props: {
     dataSource: {
       type: Object as PropType<DataFunctionProp>,
-      default: () => [],
+      default: () => []
     },
     format: {
       type: Function as PropType<typeof formatFunction>,
-      default: formatFunction,
+      default: formatFunction
     },
     modelValue: {
-      default: "",
-    },
+      default: ""
+    }
   },
 
   watch: {
@@ -102,13 +102,13 @@ export default defineComponent({
       if (!isDataFunction(data)) {
         this.setData(data);
       }
-    },
+    }
   },
 
   methods: {
     setData(array: string[]) {
       this.trie = new TrieJS();
-      array.forEach((element) => {
+      array.forEach(element => {
         this.trie.add(element);
       });
     },
@@ -195,6 +195,6 @@ export default defineComponent({
 
     getCursorPos() {
       return this.$el.selectionStart;
-    },
-  },
+    }
+  }
 });

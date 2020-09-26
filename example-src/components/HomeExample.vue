@@ -7,7 +7,7 @@
     </p>
 
     <tab-complete-input
-      id="tabInput"
+      ref="input"
       v-model="text"
       :data-source="names"
       @tabFailed="onTabFailed"
@@ -15,7 +15,13 @@
     />
 
     <div>
-      {{ completions }}
+      <a
+        v-for="(completion, i) in completions"
+        v-bind:key="i"
+        @click="() => chooseCompletion(i)"
+      >
+        {{ completion }}
+      </a>
     </div>
 
     <Button v-on:click="resetNames">{{ buttonText }}</Button>
@@ -34,7 +40,7 @@ export default {
       text: "",
       enteredText: "",
       buttonText: "Change Names",
-      completions: ""
+      completions: []
     };
   },
   methods: {
@@ -46,11 +52,14 @@ export default {
       });
     },
     onTabFailed() {
-      this.completions = "No completions";
+      this.completions = [];
     },
     onTabSuccess(e) {
       if (!e.completions) return;
-      this.completions = "Found the following: " + e.completions.join(", ");
+      this.completions = e.completions;
+    },
+    chooseCompletion(i) {
+      this.$refs.input.selectCompletion(i);
     }
   },
 
@@ -78,5 +87,9 @@ input {
 
 input:focus {
   @apply shadow-outline;
+}
+
+a {
+  @apply px-4 py-2 mr-2 bg-gray-400 inline-block;
 }
 </style>

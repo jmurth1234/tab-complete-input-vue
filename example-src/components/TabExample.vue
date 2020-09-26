@@ -7,8 +7,7 @@
     </p>
     <div class="tab">
       <tab-complete-input
-        ref="externalInput"
-        id="tabInput"
+        ref="input"
         v-model="text"
         :data-source="names"
         v-on:keydown="enterText"
@@ -46,7 +45,7 @@ export default {
     },
     tab(e) {
       e.preventDefault();
-      this.$refs.externalInput.handleTabPressed();
+      this.$refs.input.handleTabPressed();
     },
     enterText() {
       if (!this.testEvents) return;

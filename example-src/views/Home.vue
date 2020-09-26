@@ -84,6 +84,6 @@ h2 {
 }
 
 .ex-container {
-  @apply border-solid border-gray-200 border rounded shadow-sm z-10 bg-gray-200 p-2;
+  @apply rounded shadow-sm z-10 bg-gray-200 p-2;
 }
 </style>

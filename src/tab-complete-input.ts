@@ -32,9 +32,9 @@ interface Data {
 }
 
 export interface CompleteEvent {
-  original?: KeyboardEvent
+  original?: KeyboardEvent;
   completions: string[] | false;
-  word: string
+  word: string;
 }
 
 export type FormatFunction = typeof formatFunction;
@@ -49,7 +49,7 @@ function isDataFunction(data: DataFunctionProp): data is DataFunction {
 export default defineComponent({
   name: "tab-complete-input",
 
-  emits: ['tabFailed', 'tabSuccess', 'update:modelValue'],
+  emits: ["tabFailed", "tabSuccess", "update:modelValue"],
 
   data() {
     return {
@@ -61,7 +61,7 @@ export default defineComponent({
       word: "",
       possible: false,
       saved: false,
-      localValue: this.modelValue
+      localValue: this.modelValue,
     } as Data;
   },
 
@@ -80,7 +80,7 @@ export default defineComponent({
       onInput(event: InputEvent) {
         const elem = event.target as HTMLInputElement;
         self.updateValue(elem.value);
-      }
+      },
     });
   },
 
@@ -93,15 +93,18 @@ export default defineComponent({
   props: {
     dataSource: {
       type: Object as PropType<DataFunctionProp>,
-      default: () => []
+      default: () => [],
     },
     format: {
       type: Function as PropType<typeof formatFunction>,
-      default: formatFunction
+      default: formatFunction,
     },
     modelValue: {
-      default: ""
-    }
+      default: "",
+    },
+    startCompletionChar: {
+      default: "@",
+    },
   },
 
   watch: {
@@ -110,97 +113,119 @@ export default defineComponent({
       if (!isDataFunction(data)) {
         this.setData(data);
       }
-    }
+    },
   },
 
   methods: {
     setData(array: string[]) {
       this.trie = new TrieJS();
-      array.forEach(element => {
+      array.forEach((element) => {
         this.trie.add(element);
       });
     },
 
-    async tabComplete(e: KeyboardEvent) {
-      if (e && e.keyCode !== 9) {
-        this.saved = false;
-        this.index = 0;
+    async getCompletions() {
+      this.position = this.getCursorPos();
+      const newValue =
+        this.localValue.slice(0, this.position) +
+        " " +
+        this.localValue.slice(this.position);
 
-        return;
+      this.words = newValue.split(" ");
+      let lcount = 0;
+      for (let i = 0; i < this.words.length; i++) {
+        const w = this.words[i];
+        lcount += w.length + 1;
+        if (lcount >= this.position) {
+          this.word = this.words[i];
+          this.wordPos = i;
+          break;
+        }
       }
+
+      if (isDataFunction(this.dataSource)) {
+        const data = this.dataSource(this.word, this.wordPos);
+        const array = await data;
+        this.setData(array);
+      }
+
+      this.saved = true;
+      this.possible = this.trie.find(this.word);
+    },
+
+    selectCompletion(index?: number) {
+      if (!this.possible) return;
+
+      if (index && index < this.possible.length) {
+        this.index = index;
+      }
+
+      const dupe = this.words;
+      const completion = this.possible[this.index];
+      let prev = "";
+
+      if (dupe.length > 1) {
+        prev = dupe[this.wordPos - 1];
+      }
+
+      const res = this.format(completion, prev, this.wordPos);
+      dupe[this.wordPos] = res.word;
+      if (res.prev) dupe[this.wordPos - 1] = res.prev;
+
+      const newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
+      this.localValue = dupe.join(" ");
+      this.localValue =
+        this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1);
+      this.updateValue(this.localValue);
+      this.$nextTick(() => this.selectRange(newPos, newPos));
+    },
+
+    emitEvents(e?: KeyboardEvent) {
+      const event: CompleteEvent = {
+        original: e,
+        completions: this.possible,
+        word: this.word,
+      };
+
+      if (!this.possible) {
+        this.$emit("tabFailed", event);
+      } else {
+        this.$emit("tabSuccess", event);
+      }
+    },
+
+    async handleTabPressed(e?: KeyboardEvent) {
       if (!this.saved) {
-        this.position = this.getCursorPos();
-        const newValue =
-          this.localValue.slice(0, this.position) +
-          " " +
-          this.localValue.slice(this.position);
+        e?.preventDefault();
 
-        this.words = newValue.split(" ");
-        let lcount = 0;
-        for (let i = 0; i < this.words.length; i++) {
-          const w = this.words[i];
-          lcount += w.length + 1;
-          if (lcount >= this.position) {
-            this.word = this.words[i];
-            this.wordPos = i;
-            break;
-          }
-        }
+        await this.getCompletions();
 
-        if (this.word != "" && e) {
-          e.preventDefault();
-        }
-
-        if (isDataFunction(this.dataSource)) {
-          const data = this.dataSource(this.word, this.wordPos);
-          const array = await data;
-          this.setData(array);
-        }
-
-        this.saved = true;
-        this.possible = this.trie.find(this.word);
+        this.emitEvents(e);
       } else {
         this.index++;
       }
 
-      const event: CompleteEvent = {
-        original: e,
-        completions: this.possible,
-        word: this.word
-      }
-
-      if (!this.possible) {
-        this.$emit('tabFailed', event)
-      }
-
-      if (this.possible && this.index >= this.possible.length) {
-        this.index = 0;
-      }
-
       if (this.possible) {
-        if (e) e.preventDefault();
+        e?.preventDefault();
 
-        this.$emit('tabSuccess', event)
-
-        const dupe = this.words;
-        const completion = this.possible[this.index];
-        let prev = "";
-
-        if (dupe.length > 1) {
-          prev = dupe[this.wordPos - 1];
+        if (this.index >= this.possible.length) {
+          this.index = 0;
         }
 
-        const res = this.format(completion, prev, this.wordPos);
-        dupe[this.wordPos] = res.word;
-        if (res.prev) dupe[this.wordPos - 1] = res.prev;
-
-        const newPos = this.words.slice(0, this.wordPos + 1).join(" ").length;
-        this.localValue = dupe.join(" ");
-        this.localValue =
-          this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1);
-        this.updateValue(this.localValue);
-        this.$nextTick(() => this.selectRange(newPos, newPos));
+        this.selectCompletion();
       }
+    },
+
+    async tabComplete(e: KeyboardEvent) {
+      if (!e) return;
+
+      if (e.key === "tab" || e.keyCode === 9) {
+        await this.handleTabPressed(e)
+        return;
+      }
+
+      this.saved = false;
+      this.index = 0;
     },
 
     updateValue(value: string) {
@@ -215,6 +240,6 @@ export default defineComponent({
 
     getCursorPos() {
       return this.$el.selectionStart;
-    }
-  }
+    },
+  },
 });

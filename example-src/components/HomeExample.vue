@@ -18,7 +18,7 @@
       {{ completions }}
     </div>
 
-    <button v-on:click="resetNames">{{ buttonText }}</button>
+    <Button v-on:click="resetNames">{{ buttonText }}</Button>
   </div>
 </template>
 
@@ -78,21 +78,5 @@ input {
 
 input:focus {
   @apply shadow-outline;
-}
-
-button {
-  @apply bg-indigo-600 px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out my-2;
-}
-
-button:hover {
-  @apply bg-indigo-500;
-}
-
-button:active {
-  @apply bg-indigo-700;
-}
-
-button:focus {
-  @apply border-indigo-700 outline-none shadow-outline-indigo;
 }
 </style>

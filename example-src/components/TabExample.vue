@@ -14,7 +14,7 @@
         v-on:keydown="enterText"
         v-on:keyup="logCurrent"
       />
-      <button @click="tab" v-if="showTab">Tab</button>
+      <button @click="tab">Tab</button>
     </div>
 
     <button v-on:click="resetNames">{{ buttonText }}</button>
@@ -46,7 +46,7 @@ export default {
     },
     tab(e) {
       e.preventDefault();
-      this.$refs.externalInput.tabComplete();
+      this.$refs.externalInput.handleTabPressed();
     },
     enterText() {
       if (!this.testEvents) return;
@@ -77,7 +77,7 @@ p {
 }
 
 input {
-  @apply border-solid mb-2 border-gray-500 border rounded p-2 shadow-inner w-full;
+  @apply border-solid mb-2 border-gray-500 border rounded-l-md rounded-r-none p-2 shadow-inner w-full;
 }
 
 input:focus {
@@ -85,7 +85,7 @@ input:focus {
 }
 
 button {
-  @apply bg-indigo-600 px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out my-2;
+  @apply bg-indigo-600 mb-2 p-2 text-sm leading-5 font-medium rounded-r-md rounded-l-none text-white transition duration-150 ease-in-out;
 }
 
 button:hover {

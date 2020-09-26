@@ -1,0 +1,17 @@
+<tab-complete-input v-model="text" :data-source="list" />
+
+<script>
+import TabCompleteInput from "vue-tab-complete-input"
+
+export default {
+  components: {
+    TabCompleteInput
+  },
+  data() {
+    return {
+      list: [],
+      text: ''
+    }
+  },
+}
+</script>

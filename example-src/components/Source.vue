@@ -5,11 +5,19 @@
 <script>
 import Prism from "prismjs";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+Prism.languages.bash = require("prismjs/components/prism-bash");
+
 export default {
-  props: ["source"],
+  props: ["source", "language"],
   computed: {
     htmlSource() {
-      return Prism.highlight(this.source, Prism.languages.html, "html");
+      console.log(Prism.languages);
+      return Prism.highlight(
+        this.source,
+        Prism.languages[this.language],
+        this.language
+      );
     }
   }
 };

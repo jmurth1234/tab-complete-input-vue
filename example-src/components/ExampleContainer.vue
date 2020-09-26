@@ -9,7 +9,7 @@
     </header>
 
     <div class="elem code" v-if="showingSource">
-      <Source :source="sourceCode" />
+      <Source :source="sourceCode" language="html" />
     </div>
     <div class="elem" v-if="!showingSource">
       <slot></slot>

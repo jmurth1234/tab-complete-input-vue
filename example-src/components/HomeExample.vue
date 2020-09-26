@@ -6,7 +6,17 @@
       </label>
     </p>
 
-    <tab-complete-input id="tabInput" v-model="text" :data-source="names" />
+    <tab-complete-input
+      id="tabInput"
+      v-model="text"
+      :data-source="names"
+      @tabFailed="onTabFailed"
+      @tabSuccess="onTabSuccess"
+    />
+
+    <div>
+      {{ completions }}
+    </div>
 
     <button v-on:click="resetNames">{{ buttonText }}</button>
   </div>
@@ -23,7 +33,8 @@ export default {
       names: staticList.sort(),
       text: "",
       enteredText: "",
-      buttonText: "Change Names"
+      buttonText: "Change Names",
+      completions: ""
     };
   },
   methods: {
@@ -33,8 +44,16 @@ export default {
         this.names = fakeNames.generate(20).sort();
         this.buttonText = "Change Names";
       });
+    },
+    onTabFailed() {
+      this.completions = "No completions";
+    },
+    onTabSuccess(e) {
+      if (!e.completions) return;
+      this.completions = "Found the following: " + e.completions.join(", ");
     }
   },
+
   computed: {
     entryPlaceholder() {
       return this.names.join(", ");

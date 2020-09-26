@@ -31,6 +31,12 @@ interface Data {
   localValue: string;
 }
 
+export interface CompleteEvent {
+  original?: KeyboardEvent
+  completions: string[] | false;
+  word: string
+}
+
 export type FormatFunction = typeof formatFunction;
 export type DataFunction = typeof dataFunction;
 
@@ -42,6 +48,8 @@ function isDataFunction(data: DataFunctionProp): data is DataFunction {
 
 export default defineComponent({
   name: "tab-complete-input",
+
+  emits: ['tabFailed', 'tabSuccess', 'update:modelValue'],
 
   data() {
     return {
@@ -144,7 +152,6 @@ export default defineComponent({
         }
 
         if (isDataFunction(this.dataSource)) {
-          console.log(this.dataSource);
           const data = this.dataSource(this.word, this.wordPos);
           const array = await data;
           this.setData(array);
@@ -156,12 +163,25 @@ export default defineComponent({
         this.index++;
       }
 
+      const event: CompleteEvent = {
+        original: e,
+        completions: this.possible,
+        word: this.word
+      }
+
+      if (!this.possible) {
+        this.$emit('tabFailed', event)
+      }
+
       if (this.possible && this.index >= this.possible.length) {
         this.index = 0;
       }
 
       if (this.possible) {
         if (e) e.preventDefault();
+
+        this.$emit('tabSuccess', event)
+
         const dupe = this.words;
         const completion = this.possible[this.index];
         let prev = "";

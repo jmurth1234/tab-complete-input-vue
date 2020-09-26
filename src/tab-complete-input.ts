@@ -59,7 +59,7 @@ export default defineComponent({
 
   render() {
     const self = this;
-    console.log(self.localValue);
+
     return h("input", {
       ref: "input",
       ...this.$props,

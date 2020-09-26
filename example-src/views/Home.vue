@@ -2,7 +2,16 @@
   <div class="home">
     <header>
       <h1>Vue Tab Complete Input</h1>
-      <a>View the Docs</a>
+
+      <div class="buttons">
+        <Button to="/docs">View the Docs</Button>
+        <Button
+          href="https://github.com/rymate1234/tab-complete-input-vue"
+          target="_blank"
+        >
+          GitHub
+        </Button>
+      </div>
     </header>
 
     <ExampleContainer :source="'HomeExample.vue'">
@@ -15,12 +24,14 @@
 import { defineComponent } from "vue";
 import HomeExample from "../components/HomeExample.vue";
 import ExampleContainer from "../components/ExampleContainer.vue";
+import Button from "../components/primitive/Button.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     HomeExample,
-    ExampleContainer
+    ExampleContainer,
+    Button
   }
 });
 </script>
@@ -46,19 +57,4 @@ h1 {
   @apply my-8 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
 }
 
-a {
-  @apply bg-indigo-600 px-8 py-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out inline;
-}
-
-a:hover {
-  @apply bg-indigo-500;
-}
-
-a:active {
-  @apply bg-indigo-700;
-}
-
-a:focus {
-  @apply border-indigo-700 outline-none shadow-outline-indigo;
-}
 </style>

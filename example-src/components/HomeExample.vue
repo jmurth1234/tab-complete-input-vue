@@ -1,15 +1,11 @@
 <template>
   <div class="doc-example">
-    <p>
-      <label for="tabInput">
-        Try tabbing these names: {{ entryPlaceholder }}. You can also start a
-        word with @ to complete as you type.
-      </label>
-    </p>
+    <label for="tabInput">
+      Try tabbing these names: {{ entryPlaceholder }}. You can also start a word
+      with @ to complete as you type.
+    </label>
 
-    <p>
-      <Button v-on:click="resetNames">{{ buttonText }}</Button>
-    </p>
+    <button v-on:click="resetNames">{{ buttonText }}</button>
 
     <tab-complete-input
       ref="input"
@@ -35,11 +31,10 @@
 
 <script>
 import TabCompleteInput from "../../src/tab-complete-input";
-import Button from "./primitive/Button.vue";
 import { staticList } from "./shared";
 
 export default {
-  components: { TabCompleteInput, Button },
+  components: { TabCompleteInput },
   data() {
     return {
       names: staticList.sort(),

@@ -1,5 +1,5 @@
 <template>
-  <pre v-html="htmlSource" />
+  <pre :class="className" v-html="htmlSource" />
 </template>
 
 <script>
@@ -9,7 +9,7 @@ import Prism from "prismjs";
 Prism.languages.bash = require("prismjs/components/prism-bash");
 
 export default {
-  props: ["source", "language"],
+  props: ["source", "language", "className"],
   computed: {
     htmlSource() {
       return Prism.highlight(
@@ -21,9 +21,3 @@ export default {
   }
 };
 </script>
-
-<style lang="postcss">
-pre {
-  @apply font-mono max-h-96 overflow-y-auto;
-}
-</style>

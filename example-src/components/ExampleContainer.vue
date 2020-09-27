@@ -8,8 +8,8 @@
       </Button>
     </header>
 
-    <div class="elem code" v-if="showingSource">
-      <Source :source="sourceCode" language="html" />
+    <div class="elem" v-if="showingSource">
+      <Source className="code" :source="sourceCode" language="html" />
     </div>
     <div class="elem" v-if="!showingSource">
       <slot></slot>
@@ -41,7 +41,7 @@ export default defineComponent({
   computed: {
     sourceCode() {
       return require("!!raw-loader!./" + this.source).default.split(
-        "<style"
+        "\n<style"
       )[0];
     }
   }
@@ -59,11 +59,14 @@ header {
 }
 
 .elem {
-  @apply p-2 bg-white z-0;
+  @apply p-2 bg-white z-0 overflow-y-auto;
+}
+
+::v-deep(.code) {
+  @apply bg-white !important;
 }
 
 h3 {
   @apply text-2xl my-2 font-extrabold tracking-tight text-gray-900 flex-1;
 }
-
 </style>

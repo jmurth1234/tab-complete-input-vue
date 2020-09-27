@@ -1,21 +1,16 @@
 <template>
   <div class="doc-example">
-    <p>
-      <label for="tabInput">
-        Try tabbing these names: {{ entryPlaceholder }}
-      </label>
-    </p>
+    <label for="tabInput">
+      Try tabbing these names: {{ entryPlaceholder }}
+    </label>
+
+    <button v-on:click="resetNames">{{ buttonText }}</button>
 
     <tab-complete-input
       ref="externalInput"
       id="tabInput"
-      v-model="text"
       :data-source="names"
     />
-
-    <p>
-      <button v-on:click="resetNames">{{ buttonText }}</button>
-    </p>
   </div>
 </template>
 

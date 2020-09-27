@@ -7,20 +7,23 @@
     <button v-on:click="resetNames">{{ buttonText }}</button>
 
     <tab-complete-input
+      ref="externalInput"
       id="tabInput"
       v-model="text"
       :data-source="names"
-      :format="getFormat"
     />
+
+    <label>Entered text: {{ text }}</label>
   </div>
 </template>
 
 <script>
 import TabCompleteInput from "../../src/tab-complete-input";
-import { getFormat, staticList } from "./shared";
+import { staticList } from "./shared";
 
 export default {
   components: { TabCompleteInput },
+  props: ["showText", "showTab", "testEvents"],
   data() {
     return {
       names: staticList.sort(),
@@ -29,8 +32,7 @@ export default {
     };
   },
   methods: {
-    getFormat,
-    async resetNames() {
+    resetNames() {
       this.buttonText = "Changing Names...";
       import("./fake-names").then(fakeNames => {
         this.names = fakeNames.generate(20).sort();
@@ -45,4 +47,5 @@ export default {
   }
 };
 </script>
+
 <style lang="postcss" scoped src="../assets/styles/examples.postcss"></style>

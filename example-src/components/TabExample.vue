@@ -1,10 +1,9 @@
 <template>
   <div class="doc-example">
-    <p>
-      <label for="tabInput">
-        Try tabbing these names: {{ entryPlaceholder }}
-      </label>
-    </p>
+    <label for="tabInput">
+      Try tabbing these names: {{ entryPlaceholder }}
+    </label>
+
     <div class="tab">
       <tab-complete-input
         class="round-l"
@@ -66,5 +65,4 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped src="../assets/styles/examples.postcss" ></style>
-
+<style lang="postcss" scoped src="../assets/styles/examples.postcss"></style>

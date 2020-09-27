@@ -1,5 +1,7 @@
 # Documentation and Examples
 
+<router-link to="/">Home</router-link>
+
 ## Usage
 
 Firstly, you'll need to load the component into vue:
@@ -37,10 +39,6 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
   <BasicExample />
 </ExampleContainer>
 
-
-
-Note: you _must_ set a `v-model` for any tab completion to work.
-
 ## Properties
 
 ### `data-source`
@@ -62,7 +60,9 @@ async asyncData (word, position) {
 }, 
 ```
 
-<AsyncExample />
+<ExampleContainer source="AsyncExample.vue">
+  <AsyncExample />
+</ExampleContainer>
 
 ### `format`
 
@@ -81,15 +81,19 @@ getFormat (word, prev, position) {
 
 ```
 
-<FormatExample />
+<ExampleContainer source="FormatExample.vue">
+  <FormatExample />
+</ExampleContainer>
 
 The method returns an object with two properties, `word` for the resulting format of the current word and `prev` for the resulting format of the previous word.
 
-### `value`
+### `modelValue`
 
 The value of the `<input>` as a string. This must be bound using v-model.
 
-<BasicExample :showText='true' />
+<ExampleContainer source="ValueExample.vue">
+  <ValueExample />
+</ExampleContainer>
 
 ## Programatically tab competing
 
@@ -116,7 +120,9 @@ export default {
 </script>
 ```
 
-<BasicExample :showTab='true' />
+<ExampleContainer source="TabExample.vue">
+  <TabExample />
+</ExampleContainer>
 
 ## Event Handlers
 

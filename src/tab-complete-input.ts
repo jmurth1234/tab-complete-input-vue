@@ -29,11 +29,13 @@ interface Data {
   possible: string[] | false;
   saved: boolean;
   localValue: string;
+  isTypeahead: boolean;
 }
 
 export interface CompleteEvent {
   original?: KeyboardEvent;
   completions: string[] | false;
+  current: number;
   word: string;
 }
 
@@ -49,7 +51,7 @@ function isDataFunction(data: DataFunctionProp): data is DataFunction {
 export default defineComponent({
   name: "tab-complete-input",
 
-  emits: ["tabFailed", "tabSuccess", "update:modelValue"],
+  emits: ["tabFailed", "tabSuccess", "selectionChanged", "update:modelValue"],
 
   data() {
     return {
@@ -62,6 +64,7 @@ export default defineComponent({
       possible: false,
       saved: false,
       localValue: this.modelValue,
+      isTypeahead: true,
     } as Data;
   },
 
@@ -80,6 +83,7 @@ export default defineComponent({
       onInput(event: InputEvent) {
         const elem = event.target as HTMLInputElement;
         self.updateValue(elem.value);
+        self.typeaheadCompletion();
       },
     });
   },
@@ -124,7 +128,7 @@ export default defineComponent({
       });
     },
 
-    async getCompletions() {
+    getCurrentWord() {
       this.position = this.getCursorPos();
       const newValue =
         this.localValue.slice(0, this.position) +
@@ -142,7 +146,9 @@ export default defineComponent({
           break;
         }
       }
+    },
 
+    async getCompletions() {
       if (isDataFunction(this.dataSource)) {
         const data = this.dataSource(this.word, this.wordPos);
         const array = await data;
@@ -156,9 +162,11 @@ export default defineComponent({
     selectCompletion(index?: number) {
       if (!this.possible) return;
 
-      if (index && index < this.possible.length) {
+      if (index !== undefined && index < this.possible.length) {
         this.index = index;
       }
+
+      this.isTypeahead = false
 
       const dupe = this.words;
       const completion = this.possible[this.index];
@@ -178,6 +186,14 @@ export default defineComponent({
         this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1);
       this.updateValue(this.localValue);
       this.$nextTick(() => this.selectRange(newPos, newPos));
+
+      const event: CompleteEvent = {
+        completions: this.possible,
+        word: this.word,
+        current: this.index,
+      };
+
+      this.$emit("selectionChanged", event);
     },
 
     emitEvents(e?: KeyboardEvent) {
@@ -185,6 +201,7 @@ export default defineComponent({
         original: e,
         completions: this.possible,
         word: this.word,
+        current: this.index,
       };
 
       if (!this.possible) {
@@ -196,11 +213,11 @@ export default defineComponent({
 
     async handleTabPressed(e?: KeyboardEvent) {
       if (!this.saved) {
+        this.getCurrentWord();
+
         e?.preventDefault();
 
         await this.getCompletions();
-
-        this.emitEvents(e);
       } else {
         this.index++;
       }
@@ -214,18 +231,48 @@ export default defineComponent({
 
         this.selectCompletion();
       }
+
+      this.emitEvents(e);
     },
 
     async tabComplete(e: KeyboardEvent) {
       if (!e) return;
 
       if (e.key === "tab" || e.keyCode === 9) {
-        await this.handleTabPressed(e)
+        await this.handleTabPressed(e);
         return;
       }
 
-      this.saved = false;
-      this.index = 0;
+      if (!this.isTypeahead) {
+        this.saved = false;
+        this.possible = false;
+        this.index = 0;
+
+        this.emitEvents(e);
+      }
+    },
+
+    async typeaheadCompletion() {
+      this.getCurrentWord();
+
+      if (this.word.startsWith(this.startCompletionChar)) {
+        this.word = this.word.replace(this.startCompletionChar, "");
+        await this.getCompletions();
+        this.emitEvents();
+
+        this.isTypeahead = true;
+
+        return;
+      }
+
+      if (this.isTypeahead) {
+        await this.getCompletions();
+        this.emitEvents();
+
+        if (!this.possible) {
+          this.isTypeahead = false;
+        }
+      }
     },
 
     updateValue(value: string) {

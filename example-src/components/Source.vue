@@ -12,7 +12,6 @@ export default {
   props: ["source", "language"],
   computed: {
     htmlSource() {
-      console.log(Prism.languages);
       return Prism.highlight(
         this.source,
         Prism.languages[this.language],

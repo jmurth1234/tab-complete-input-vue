@@ -2,8 +2,13 @@
   <div class="doc-example">
     <p>
       <label for="tabInput">
-        Try tabbing these names: {{ entryPlaceholder }}
+        Try tabbing these names: {{ entryPlaceholder }}. You can also start a
+        word with @ to complete as you type.
       </label>
+    </p>
+
+    <p>
+      <Button v-on:click="resetNames">{{ buttonText }}</Button>
     </p>
 
     <tab-complete-input
@@ -12,35 +17,37 @@
       :data-source="names"
       @tabFailed="onTabFailed"
       @tabSuccess="onTabSuccess"
+      @selectionChanged="onTabSuccess"
     />
 
     <div>
       <a
         v-for="(completion, i) in completions"
         v-bind:key="i"
+        v-bind:class="{ active: current == i }"
         @click="() => chooseCompletion(i)"
       >
         {{ completion }}
       </a>
     </div>
-
-    <Button v-on:click="resetNames">{{ buttonText }}</Button>
   </div>
 </template>
 
 <script>
 import TabCompleteInput from "../../src/tab-complete-input";
+import Button from "./primitive/Button.vue";
 import { staticList } from "./shared";
 
 export default {
-  components: { TabCompleteInput },
+  components: { TabCompleteInput, Button },
   data() {
     return {
       names: staticList.sort(),
       text: "",
       enteredText: "",
       buttonText: "Change Names",
-      completions: []
+      completions: [],
+      current: 0
     };
   },
   methods: {
@@ -57,6 +64,7 @@ export default {
     onTabSuccess(e) {
       if (!e.completions) return;
       this.completions = e.completions;
+      this.current = e.current;
     },
     chooseCompletion(i) {
       this.$refs.input.selectCompletion(i);
@@ -90,6 +98,10 @@ input:focus {
 }
 
 a {
-  @apply px-4 py-2 mr-2 bg-gray-400 inline-block;
+  @apply px-4 py-2 mr-2 bg-gray-200 inline-block;
+}
+
+.active {
+  @apply bg-cool-gray-300;
 }
 </style>

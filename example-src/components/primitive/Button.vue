@@ -30,6 +30,13 @@ Button.props = ["href", "to"];
 export default Button;
 </script>
 
+<style scoped>
+.button {
+  background: crimson;
+}
+</style>
+
+<!--
 <style lang="postcss" scoped>
 .button {
   @apply bg-indigo-600 px-8 py-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out inline;
@@ -46,4 +53,4 @@ export default Button;
 .button:focus {
   @apply border-indigo-700 outline-none shadow-outline-indigo;
 }
-</style>
+</style>-->

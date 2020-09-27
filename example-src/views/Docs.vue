@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 import BasicExample from "../components/BasicExample.vue";
 import AsyncExample from "../components/AsyncExample.vue";
 import FormatExample from "../components/FormatExample.vue";
+import ExampleContainer from "../components/ExampleContainer.vue";
 import Prism from "prismjs";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -11,7 +12,7 @@ const docs = require("../../docs/docs.md");
 
 export default defineComponent({
   template: `<div class="docs">${docs}</div>`,
-  components: { BasicExample, AsyncExample, FormatExample },
+  components: { BasicExample, AsyncExample, FormatExample, ExampleContainer },
   mounted() {
     Prism.highlightAll();
   }
@@ -31,23 +32,4 @@ export default defineComponent({
   margin: 0 auto;
 }
 
-header {
-  @apply p-4 text-center;
-}
-
-h1 {
-  @apply my-4 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
-}
-
-h2 {
-  @apply mt-8 mb-2 text-2xl leading-8 font-extrabold tracking-tight text-gray-800;
-}
-
-.ex-container {
-  @apply rounded shadow-sm z-10 bg-gray-200 p-2;
-}
-
-.buttons a {
-  @apply mx-2;
-}
 </style>

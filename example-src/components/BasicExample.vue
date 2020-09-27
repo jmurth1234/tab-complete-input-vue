@@ -5,21 +5,17 @@
         Try tabbing these names: {{ entryPlaceholder }}
       </label>
     </p>
-    <div :class="showTab ? 'tab' : ''">
-      <tab-complete-input
-        ref="externalInput"
-        id="tabInput"
-        v-model="text"
-        :data-source="names"
-        v-on:keydown="enterText"
-        v-on:keyup="logCurrent"
-      />
-      <button @click="tab" v-if="showTab">Tab</button>
-    </div>
-    <p v-if="showText || testEvents">
-      Bound value: {{ testEvents ? enteredText : text }}
+
+    <tab-complete-input
+      ref="externalInput"
+      id="tabInput"
+      v-model="text"
+      :data-source="names"
+    />
+
+    <p>
+      <button v-on:click="resetNames">{{ buttonText }}</button>
     </p>
-    <button v-on:click="resetNames">{{ buttonText }}</button>
   </div>
 </template>
 

@@ -33,7 +33,11 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 <tab-complete-input v-model="text" :data-source="list" />
 ```
 
-<BasicExample />
+<ExampleContainer source="BasicExample.vue">
+  <BasicExample />
+</ExampleContainer>
+
+
 
 Note: you _must_ set a `v-model` for any tab completion to work.
 
@@ -47,7 +51,7 @@ In the case of the array, the contents of the array are loaded into the tab comp
 
 In the case of the method, the method is called each time a user starts tab completing a word, and will only run when a user starts completing another word.
 Internally, this method has an await on it, meaning you can pass in a async method and it will be awaited. If you need to pass in a callback function, you will 
-need to use something like `util.promisify` as these are not otherwsie supported
+need to use something like `util.promisify` as these are not otherwise supported
 
 When calling the method, two arguments are passed to it - the current word being completed and the position within the string.
 

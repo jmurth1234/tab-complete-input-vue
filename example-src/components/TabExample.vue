@@ -7,6 +7,7 @@
     </p>
     <div class="tab">
       <tab-complete-input
+        class="round-l"
         ref="input"
         v-model="text"
         :data-source="names"
@@ -16,7 +17,7 @@
       <button @click="tab">Tab</button>
     </div>
 
-    <button v-on:click="resetNames">{{ buttonText }}</button>
+    <button class="round-4" v-on:click="resetNames">{{ buttonText }}</button>
   </div>
 </template>
 
@@ -65,37 +66,5 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped>
-p {
-  @apply my-2 text-base py-2;
-}
+<style lang="postcss" scoped src="../assets/styles/examples.postcss" ></style>
 
-.tab {
-  display: flex;
-  flex-direction: row;
-}
-
-input {
-  @apply border-solid mb-2 border-gray-500 border rounded-l-md rounded-r-none p-2 shadow-inner w-full;
-}
-
-input:focus {
-  @apply shadow-outline;
-}
-
-button {
-  @apply bg-indigo-600 mb-2 p-2 text-sm leading-5 font-medium rounded-r-md rounded-l-none text-white transition duration-150 ease-in-out;
-}
-
-button:hover {
-  @apply bg-indigo-500;
-}
-
-button:active {
-  @apply bg-indigo-700;
-}
-
-button:focus {
-  @apply border-indigo-700 outline-none shadow-outline-indigo;
-}
-</style>

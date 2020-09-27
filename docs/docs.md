@@ -1,21 +1,17 @@
----
-sidebar: auto
----
-
 # Documentation and Examples
 
 ## Usage
 
 Firstly, you'll need to load the component into vue:
 
-``` JavaScript
+``` javascript
 import TabCompleteInput from "vue-tab-complete-input"
 Vue.component( 'tab-complete-input', TabCompleteInput );
 ```
 
 Alternatively, when defining a vue component it's used in, include it in the list of components:
 
-``` JavaScript
+``` javascript
 import TabCompleteInput from "vue-tab-complete-input"
 
 export default {
@@ -40,8 +36,6 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 <BasicExample />
 
 Note: you _must_ set a `v-model` for any tab completion to work.
-
-Full examples of the components used within these docs are available in this folder [`~/docs/.vuepress/components`](https://github.com/rymate1234/tab-complete-input-vue/tree/master/docs/.vuepress/components)
 
 ## Properties
 
@@ -106,16 +100,16 @@ In order to do this, you can set a reference on the tab complete element in your
 You can then use that reference to perform the equivalent of pressing tab in the input box using any other method, for instance a tab button somewhere on the page. 
 
 ```html
- <button @click="tab">Tab</button>
- 
- <script>
-  export default {
-    tab (e) {
-      e.preventDefault()
-      this.$refs.externalInput.tabComplete()
-    },
-  }
- </script>
+<button @click="tab">Tab</button>
+
+<script>
+export default {
+  tab (e) {
+    e.preventDefault()
+    this.$refs.externalInput.tabComplete()
+  },
+}
+</script>
 ```
 
 <BasicExample :showTab='true' />
@@ -125,12 +119,12 @@ You can then use that reference to perform the equivalent of pressing tab in the
 All event handlers supported by normal input panels are supported by this component.
 
 ```html
-  <tab-complete-input ref="externalInput" 
-    id="tabInput" 
-    v-model="text" 
-    :data-source="names" 
-    v-on:keydown.13="enterText" 
-    v-on:keyup="logCurrent" />
+<tab-complete-input ref="externalInput" 
+  id="tabInput" 
+  v-model="text" 
+  :data-source="names" 
+  v-on:keydown.13="enterText" 
+  v-on:keyup="logCurrent" />
 ```
 
 <BasicExample :testEvents='true' />

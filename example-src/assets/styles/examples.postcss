@@ -1,0 +1,56 @@
+p {
+  @apply mb-2 text-base pb-2;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  @apply border-solid mb-2 border-gray-500 border rounded p-2 shadow-inner w-full;
+}
+
+input:focus {
+  @apply shadow-outline;
+}
+
+a {
+  @apply px-4 py-2 mr-2 bg-gray-200 inline-block;
+}
+
+.active {
+  @apply bg-cool-gray-300;
+}
+
+input {
+  @apply border-solid mb-2 border-gray-500 border p-2 shadow-inner w-full;
+}
+
+input:focus {
+  @apply shadow-outline;
+}
+
+button {
+  @apply bg-indigo-600 mb-2 p-2 text-sm leading-5 font-medium text-white transition duration-150 ease-in-out;
+}
+
+button:hover {
+  @apply bg-indigo-500;
+}
+
+button:active {
+  @apply bg-indigo-700;
+}
+
+button:focus {
+  @apply border-indigo-700 outline-none shadow-outline-indigo;
+}
+
+.round-r {
+  @apply rounded-r-md rounded-l-none;
+}
+
+.round-l {
+  @apply rounded-l-md rounded-r-none;
+}

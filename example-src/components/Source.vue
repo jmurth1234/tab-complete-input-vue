@@ -13,7 +13,7 @@ export default {
   computed: {
     htmlSource() {
       return Prism.highlight(
-        this.source,
+        this.source || this.$slots.default()[0].children,
         Prism.languages[this.language],
         this.language
       );

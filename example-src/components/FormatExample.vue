@@ -47,3 +47,4 @@ export default {
   }
 };
 </script>
+<style lang="postcss" scoped src="../assets/styles/examples.postcss"></style>

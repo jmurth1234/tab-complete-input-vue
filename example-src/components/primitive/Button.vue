@@ -10,6 +10,7 @@ import { RouterLink } from "vue-router";
 
 export default defineComponent({
   data() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let component: any = "a";
 
     if (!this.href) {

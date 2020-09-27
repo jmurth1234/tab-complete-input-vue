@@ -79,29 +79,4 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped>
-p {
-  @apply mb-2 text-base pb-2;
-}
-
-.tab {
-  display: flex;
-  flex-direction: row;
-}
-
-input {
-  @apply border-solid mb-2 border-gray-500 border rounded p-2 shadow-inner w-full;
-}
-
-input:focus {
-  @apply shadow-outline;
-}
-
-a {
-  @apply px-4 py-2 mr-2 bg-gray-200 inline-block;
-}
-
-.active {
-  @apply bg-cool-gray-300;
-}
-</style>
+<style lang="postcss" scoped src="../assets/styles/examples.postcss" />

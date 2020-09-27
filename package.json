@@ -18,7 +18,9 @@
   "main": "out/tab-complete-input.umd.js",
   "module": "out/tab-complete-input.modern.module.js",
   "unpkg": "out/tab-complete-input.umd.js",
-  "files": ["out/"],
+  "files": [
+    "out/"
+  ],
   "devDependencies": {
     "@tailwindcss/ui": "^0.6.2",
     "@types/faker": "^5.1.2",
@@ -44,6 +46,7 @@
     "tailwindcss": "^1.8.10",
     "typescript": "~3.9.3",
     "vue": "^3.0.0-0",
+    "vue-cli-plugin-markdown": "~0.1.2",
     "vue-cli-plugin-tailwindcss": "~0.1.1",
     "vue-router": "^4.0.0-0"
   },
@@ -58,5 +61,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
+  },
+  "dependencies": {
+    "@types/prismjs": "^1.16.1"
   }
 }

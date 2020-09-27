@@ -53,7 +53,7 @@ export default defineComponent({
   data() {
     return {
       str: require("!!raw-loader!../snippets/example.html").default
-    }
+    };
   }
 });
 </script>
@@ -85,5 +85,9 @@ h2 {
 
 .ex-container {
   @apply rounded shadow-sm z-10 bg-gray-200 p-2;
+}
+
+.buttons a {
+  @apply mx-2;
 }
 </style>

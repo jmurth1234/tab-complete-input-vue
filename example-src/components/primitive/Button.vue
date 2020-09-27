@@ -1,46 +1,36 @@
+<template>
+  <component class="button" :is="component" v-bind="this">
+    <slot />
+  </component>
+</template>
+
 <script lang="ts">
-import { h } from "vue";
+import { defineComponent, h } from "vue";
 import { RouterLink } from "vue-router";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Button = (props: any, context: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let component: any = "a";
+export default defineComponent({
+  data() {
+    let component: any = "a";
 
-  if (!props.href) {
-    component = "button";
-  }
+    if (!this.href) {
+      component = "button";
+    }
 
-  if (props.to) {
-    component = RouterLink;
-  }
+    if (this.to) {
+      component = RouterLink;
+    }
 
-  if (!context.slots.default) {
-    return null;
-  }
-
-  return h(
-    component,
-    { ...props, ...context.attr, className: "button" },
-    context.slots.default()
-  );
-};
-
-Button.props = ["href", "to"];
-
-export default Button;
+    return {
+      component
+    };
+  },
+  props: ["to", "href"]
+});
 </script>
 
-<style scoped>
-.button {
-  background: crimson;
-}
-</style>
-
-<!--
 <style lang="postcss" scoped>
 .button {
-  @apply bg-indigo-600 px-8 py-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out inline;
+  @apply bg-indigo-600 px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white transition duration-150 ease-in-out inline;
 }
 
 .button:hover {
@@ -54,4 +44,4 @@ export default Button;
 .button:focus {
   @apply border-indigo-700 outline-none shadow-outline-indigo;
 }
-</style>-->
+</style>

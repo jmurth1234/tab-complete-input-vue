@@ -2,6 +2,7 @@
 import { h } from "vue";
 import { RouterLink } from "vue-router";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Button = (props: any, context: any) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let component: any = "a";

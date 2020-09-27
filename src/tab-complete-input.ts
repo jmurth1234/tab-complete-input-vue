@@ -64,7 +64,7 @@ export default defineComponent({
       possible: false,
       saved: false,
       localValue: this.modelValue,
-      isTypeahead: true,
+      isTypeahead: true
     } as Data;
   },
 
@@ -84,7 +84,7 @@ export default defineComponent({
         const elem = event.target as HTMLInputElement;
         self.updateValue(elem.value);
         self.typeaheadCompletion();
-      },
+      }
     });
   },
 
@@ -97,18 +97,18 @@ export default defineComponent({
   props: {
     dataSource: {
       type: Object as PropType<DataFunctionProp>,
-      default: () => [],
+      default: () => []
     },
     format: {
       type: Function as PropType<typeof formatFunction>,
-      default: formatFunction,
+      default: formatFunction
     },
     modelValue: {
-      default: "",
+      default: ""
     },
     startCompletionChar: {
-      default: "@",
-    },
+      default: "@"
+    }
   },
 
   watch: {
@@ -117,13 +117,13 @@ export default defineComponent({
       if (!isDataFunction(data)) {
         this.setData(data);
       }
-    },
+    }
   },
 
   methods: {
     setData(array: string[]) {
       this.trie = new TrieJS();
-      array.forEach((element) => {
+      array.forEach(element => {
         this.trie.add(element);
       });
     },
@@ -166,7 +166,7 @@ export default defineComponent({
         this.index = index;
       }
 
-      this.isTypeahead = false
+      this.isTypeahead = false;
 
       const dupe = this.words;
       const completion = this.possible[this.index];
@@ -190,7 +190,7 @@ export default defineComponent({
       const event: CompleteEvent = {
         completions: this.possible,
         word: this.word,
-        current: this.index,
+        current: this.index
       };
 
       this.$emit("selectionChanged", event);
@@ -201,7 +201,7 @@ export default defineComponent({
         original: e,
         completions: this.possible,
         word: this.word,
-        current: this.index,
+        current: this.index
       };
 
       if (!this.possible) {
@@ -287,6 +287,6 @@ export default defineComponent({
 
     getCursorPos() {
       return this.$el.selectionStart;
-    },
-  },
+    }
+  }
 });

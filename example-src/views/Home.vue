@@ -4,12 +4,13 @@
       <h1>Vue Tab Complete Input</h1>
 
       <div class="buttons">
-        <Button to="/docs">View the Docs</Button>
+        <Button to="/docs"><span>View the Docs</span></Button>
+        <span class="empty"></span>
         <Button
           href="https://github.com/rymate1234/tab-complete-input-vue"
           target="_blank"
         >
-          GitHub
+          <span>GitHub</span>
         </Button>
       </div>
     </header>

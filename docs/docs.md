@@ -91,6 +91,10 @@ The value of the `<input>` as a string. This must be bound using v-model.
   <ValueExample />
 </ExampleContainer>
 
+### `startCompletionChar`
+
+When a word starts with the `startCompletionChar`, the component will start tab completing in the background. When combined with events like `tabSuccess`, this can be used to help build alternative UIs for completion using this component.
+
 ## Programatically tab competing
 
 Sometimes you may want to be able to tab complete an input field without the user pressing the tab key. For instance, if they're on a mobile device, most do not have a tab button. 
@@ -110,7 +114,7 @@ You can then use that reference to perform the equivalent of pressing tab in the
 export default {
   tab (e) {
     e.preventDefault()
-    this.$refs.externalInput.tabComplete()
+    this.$refs.externalInput.handleTabPressed()
   },
 }
 </script>
@@ -119,6 +123,11 @@ export default {
 <ExampleContainer source="TabExample.vue">
   <TabExample />
 </ExampleContainer>
+
+For more fine grained control over completion behavior, you can use the following methods to build your own behaviour:
+
+ - `getCompletions()` -- Fetches data from the data source if it's a function, and then checks whether the current word is in the list of completions. Emits either `tabFailed` or `tabSuccess` 
+ - `selectCompletion(index?: number)` -- Selects a completion from the list of valid current completions, and applies it to the current word. If a number is passed, the word at that position will be selected as the completion.
 
 ## Event Handlers
 
@@ -135,3 +144,19 @@ All event handlers supported by normal input panels are supported by this compon
 <ExampleContainer source="EventsExample.vue">
   <EventsExample />
 </ExampleContainer>
+
+Additionally, four new event handlers are defined by the component:
+
+ - `tabSuccess` -- Emitted when an attempt to get completions returns results
+ - `tabFailed` -- Emitted when an attempt to get completions returns no results
+ - `tabEnded` -- Emitted when the user has ended completions on the current word
+ - `selectionChanged` -- Emitted after a new completion is selected.
+
+All events emitted by the component have at most 4 properties:
+
+ - `original` -- The keyboard event that caused this event to eventually happen, if applicable
+ - `completions` -- The list of valid completions, or a `false` boolean 
+ - `current` -- The current selected index
+ - `word` -- The word being completed
+
+

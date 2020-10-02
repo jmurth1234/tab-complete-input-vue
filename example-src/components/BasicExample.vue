@@ -25,7 +25,6 @@ export default {
     return {
       names: staticList.sort(),
       text: "",
-      enteredText: "",
       buttonText: "Change Names"
     };
   },
@@ -36,19 +35,6 @@ export default {
         this.names = fakeNames.generate(20).sort();
         this.buttonText = "Change Names";
       });
-    },
-    tab(e) {
-      e.preventDefault();
-      this.$refs.externalInput.tabComplete();
-    },
-    enterText() {
-      if (!this.testEvents) return;
-      this.enteredText = this.text;
-      this.text = "";
-    },
-    logCurrent() {
-      if (!this.testEvents) return;
-      console.log("Current Value:", this.text);
     }
   },
   computed: {

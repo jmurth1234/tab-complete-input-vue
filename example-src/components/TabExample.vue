@@ -11,8 +11,6 @@
         ref="input"
         v-model="text"
         :data-source="names"
-        v-on:keydown="enterText"
-        v-on:keyup="logCurrent"
       />
       <button @click="tab">Tab</button>
     </div>
@@ -47,15 +45,6 @@ export default {
     tab(e) {
       e.preventDefault();
       this.$refs.input.handleTabPressed();
-    },
-    enterText() {
-      if (!this.testEvents) return;
-      this.enteredText = this.text;
-      this.text = "";
-    },
-    logCurrent() {
-      if (!this.testEvents) return;
-      console.log("Current Value:", this.text);
     }
   },
   computed: {

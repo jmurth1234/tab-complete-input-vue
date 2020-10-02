@@ -51,7 +51,7 @@ function isDataFunction(data: DataFunctionProp): data is DataFunction {
 export default defineComponent({
   name: "tab-complete-input",
 
-  emits: ["tabFailed", "tabSuccess", "selectionChanged", "update:modelValue"],
+  emits: ["tabFailed", "tabSuccess", "tabEnded", "selectionChanged", "update:modelValue"],
 
   data() {
     return {
@@ -156,7 +156,7 @@ export default defineComponent({
       }
     },
 
-    async getCompletions() {
+    async getCompletions(e?: KeyboardEvent) {
       if (isDataFunction(this.dataSource)) {
         const data = this.dataSource(this.word, this.wordPos);
         const array = await data;
@@ -165,6 +165,8 @@ export default defineComponent({
 
       this.saved = true;
       this.possible = this.trie.find(this.word);
+
+      this.emitEvents(e);
     },
 
     selectCompletion(index?: number) {
@@ -213,7 +215,7 @@ export default defineComponent({
       };
 
       if (!this.possible) {
-        this.$emit("tabFailed", event);
+        this.$emit(this.saved ? "tabFailed" : "tabEnded", event);
       } else {
         this.$emit("tabSuccess", event);
       }
@@ -221,11 +223,9 @@ export default defineComponent({
 
     async handleTabPressed(e?: KeyboardEvent) {
       if (!this.saved) {
-        this.getCurrentWord();
-
         e?.preventDefault();
 
-        await this.getCompletions();
+        await this.getCompletions(e);
       } else {
         this.index++;
       }
@@ -239,12 +239,12 @@ export default defineComponent({
 
         this.selectCompletion();
       }
-
-      this.emitEvents(e);
     },
 
     async tabComplete(e: KeyboardEvent) {
       if (!e) return;
+
+      this.getCurrentWord();
 
       if (e.key === "tab" || e.keyCode === 9) {
         await this.handleTabPressed(e);
@@ -261,12 +261,9 @@ export default defineComponent({
     },
 
     async typeaheadCompletion() {
-      this.getCurrentWord();
-
       if (this.word.startsWith(this.startCompletionChar)) {
         this.word = this.word.replace(this.startCompletionChar, "");
         await this.getCompletions();
-        this.emitEvents();
 
         this.isTypeahead = true;
 
@@ -275,7 +272,6 @@ export default defineComponent({
 
       if (this.isTypeahead) {
         await this.getCompletions();
-        this.emitEvents();
 
         if (!this.possible) {
           this.isTypeahead = false;

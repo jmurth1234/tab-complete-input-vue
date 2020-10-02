@@ -42,12 +42,9 @@ export default {
         this.buttonText = "Change Names";
       });
     },
-    tab(e) {
-      e.preventDefault();
-      this.$refs.externalInput.tabComplete();
-    },
     enterText(e) {
-      e.preventDefault()
+      e.preventDefault();
+
       this.enteredText = `${this.text}`;
       this.text = "";
     },

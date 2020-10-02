@@ -55,7 +55,7 @@ header {
 }
 
 .example {
-  @apply rounded shadow-md z-10 bg-gray-200 my-2;
+  @apply rounded shadow-md z-10 bg-gray-200 my-2 mt-6;
 }
 
 .elem {
@@ -63,7 +63,7 @@ header {
 }
 
 ::v-deep(.code) {
-  @apply bg-white !important;
+  @apply bg-white shadow-none !important;
 }
 
 h3 {

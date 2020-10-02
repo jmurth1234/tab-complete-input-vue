@@ -1,6 +1,6 @@
 <template>
   <div class="doc-example">
-    <label for="tabInput">
+    <label for="tabValueInput">
       Try tabbing these names: {{ entryPlaceholder }}
     </label>
 
@@ -8,7 +8,7 @@
 
     <tab-complete-input
       ref="externalInput"
-      id="tabInput"
+      id="tabValueInput"
       v-model="text"
       :data-source="names"
     />

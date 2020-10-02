@@ -1,22 +1,5 @@
 <template>
   <div class="home">
-    <header>
-      <h1>Vue Tab Complete Input</h1>
-
-      <div class="buttons">
-        <span><Button to="/docs">View the Docs</Button></span>
-        <span class="empty"></span>
-        <span>
-          <Button
-            href="https://github.com/rymate1234/tab-complete-input-vue"
-            target="_blank"
-          >
-            Github
-          </Button>
-        </span>
-      </div>
-    </header>
-
     <ExampleContainer :source="'HomeExample.vue'">
       <HomeExample />
     </ExampleContainer>
@@ -39,14 +22,12 @@
 import { defineComponent, defineAsyncComponent } from "vue";
 import HomeExample from "../components/HomeExample.vue";
 import ExampleContainer from "../components/ExampleContainer.vue";
-import Button from "../components/primitive/Button.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     HomeExample,
     ExampleContainer,
-    Button,
     Source: defineAsyncComponent(async () => {
       const component = await import("../components/Source.vue");
 

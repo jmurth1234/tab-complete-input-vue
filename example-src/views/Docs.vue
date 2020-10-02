@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 
 import BasicExample from "../components/BasicExample.vue";
+import EventsExample from "../components/EventsExample.vue";
 import TabExample from "../components/TabExample.vue";
 import AsyncExample from "../components/AsyncExample.vue";
 import FormatExample from "../components/FormatExample.vue";
@@ -20,7 +21,8 @@ export default defineComponent({
     FormatExample,
     ExampleContainer,
     ValueExample,
-    TabExample
+    TabExample,
+    EventsExample
   },
   mounted() {
     Prism.highlightAll();

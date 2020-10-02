@@ -25,12 +25,16 @@ html, body {
   margin: 0 auto;
 }
 
-.home > header {
-  @apply p-4 text-center;
+header.main {
+  @apply p-4 text-center flex align-middle content-center justify-center items-center;
+}
+
+header.main h1 {
+  @apply text-4xl flex-1;
 }
 
 h1 {
-  @apply my-4 text-3xl leading-8 font-extrabold tracking-tight text-gray-900;
+  @apply my-4 text-3xl leading-8 font-extrabold text-gray-900;
 }
 
 h2 {
@@ -41,7 +45,7 @@ h3 {
   @apply mt-2 mb-2 text-2xl leading-8 font-extrabold tracking-tight text-gray-800;
 }
 
-.buttons a {
+header.main a {
   @apply mx-2;
 }
 

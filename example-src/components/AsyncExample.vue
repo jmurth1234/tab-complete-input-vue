@@ -1,11 +1,11 @@
 <template>
   <div class="doc-example">
     <p>
-      <label for="tabInput">{{ entryPlaceholder }}</label>
+      <label for="tabAsyncInput">{{ entryPlaceholder }}</label>
     </p>
     <p>
       <tab-complete-input
-        id="tabInput"
+        id="tabAsyncInput"
         v-model="text"
         :data-source="asyncData"
       />

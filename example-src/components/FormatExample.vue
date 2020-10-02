@@ -1,13 +1,13 @@
 <template>
   <div class="doc-example">
-    <label for="tabInput">
+    <label for="tabFormatInput">
       Try tabbing these names: {{ entryPlaceholder }}
     </label>
 
     <button v-on:click="resetNames">{{ buttonText }}</button>
 
     <tab-complete-input
-      id="tabInput"
+      id="tabFormatInput"
       v-model="text"
       :data-source="names"
       :format="getFormat"

@@ -1,6 +1,6 @@
 <template>
   <div class="doc-example">
-    <label for="tabInput">
+    <label for="tabHomeInput">
       Try tabbing these names: {{ entryPlaceholder }}. You can also start a word
       with @ to complete as you type.
     </label>
@@ -8,7 +8,7 @@
     <button v-on:click="resetNames">{{ buttonText }}</button>
 
     <tab-complete-input
-      ref="input"
+      ref="tabHomeInput"
       v-model="text"
       :data-source="names"
       @tabFailed="onTabFailed"

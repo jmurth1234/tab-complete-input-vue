@@ -1,7 +1,3 @@
-# Documentation and Examples
-
-<router-link to="/">Home</router-link>
-
 ## Usage
 
 Firstly, you'll need to load the component into vue:
@@ -130,11 +126,12 @@ All event handlers supported by normal input panels are supported by this compon
 
 ```html
 <tab-complete-input ref="externalInput" 
-  id="tabInput" 
   v-model="text" 
   :data-source="names" 
-  v-on:keydown.13="enterText" 
+  @keydown.enter="enterText"
   v-on:keyup="logCurrent" />
 ```
 
-<BasicExample :testEvents='true' />
+<ExampleContainer source="EventsExample.vue">
+  <EventsExample />
+</ExampleContainer>

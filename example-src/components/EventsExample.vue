@@ -1,23 +1,21 @@
 <template>
   <div class="doc-example">
-    <label for="tabTouchInput">
+    <label for="tabEventsInput">
       Try tabbing these names: {{ entryPlaceholder }}
     </label>
 
-    <div class="tab">
-      <tab-complete-input
-        class="round-l"
-        id="tabTouchInput"
-        ref="input"
-        v-model="text"
-        :data-source="names"
-        v-on:keydown="enterText"
-        v-on:keyup="logCurrent"
-      />
-      <button @click="tab">Tab</button>
-    </div>
+    <button v-on:click="resetNames">{{ buttonText }}</button>
 
-    <button class="round-4" v-on:click="resetNames">{{ buttonText }}</button>
+    <tab-complete-input
+      ref="externalInput"
+      id="tabEventsInput"
+      v-model="text"
+      :data-source="names"
+      @keydown.enter="enterText"
+      v-on:keyup="logCurrent"
+    />
+
+    <p>Entered Text: {{ enteredText }}</p>
   </div>
 </template>
 
@@ -46,15 +44,14 @@ export default {
     },
     tab(e) {
       e.preventDefault();
-      this.$refs.input.handleTabPressed();
+      this.$refs.externalInput.tabComplete();
     },
-    enterText() {
-      if (!this.testEvents) return;
-      this.enteredText = this.text;
+    enterText(e) {
+      e.preventDefault()
+      this.enteredText = `${this.text}`;
       this.text = "";
     },
     logCurrent() {
-      if (!this.testEvents) return;
       console.log("Current Value:", this.text);
     }
   },

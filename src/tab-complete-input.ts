@@ -71,15 +71,23 @@ export default defineComponent({
   render() {
     const self = this;
 
+    let onKeydown: any[] = [ this.tabComplete ]
+
+    if (typeof(this.$attrs.onKeydown) === 'function') {
+      onKeydown.push(this.$attrs.onKeydown)
+    }
+
+    if (Array.isArray(this.$attrs.onKeydown)) {
+      onKeydown.push(...this.$attrs.onKeydown)
+    }
+
     return h("input", {
       ref: "input",
       ...this.$props,
       ...this.$attrs,
-      value: self.localValue,
+      value: self.modelValue,
       "onUpdate:modelValue": (value: string) => (self.localValue = value),
-      onKeydown: this.$attrs.keydown
-        ? [this.tabComplete, this.$attrs.keydown]
-        : this.tabComplete,
+      onKeydown,
       onInput(event: InputEvent) {
         const elem = event.target as HTMLInputElement;
         self.updateValue(elem.value);

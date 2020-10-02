@@ -1,5 +1,5 @@
 <template>
-  <component class="button" :is="component" v-bind="this">
+  <component class="button" :is="component" v-bind="this" :to="to" :href="href">
     <slot />
   </component>
 </template>

@@ -15,8 +15,17 @@ input:focus {
   @apply shadow-outline;
 }
 
+.input-container {
+  @apply relative;
+}
+
+.dropdown {
+  top: -48px;
+  @apply flex absolute shadow-md;
+}
+
 a {
-  @apply px-4 py-2 mr-2 bg-gray-200 inline-block;
+  @apply z-10 px-4 py-2 bg-gray-200 inline-block;
 }
 
 .active {

@@ -159,4 +159,6 @@ All events emitted by the component have at most 4 properties:
  - `current` -- The current selected index
  - `word` -- The word being completed
 
-
+<ExampleContainer :source="'HomeExample.vue'">
+  <HomeExample />
+</ExampleContainer>

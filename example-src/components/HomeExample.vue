@@ -7,24 +7,29 @@
 
     <button v-on:click="resetNames">{{ buttonText }}</button>
 
-    <tab-complete-input
-      ref="tabHomeInput"
-      v-model="text"
-      :data-source="names"
-      @tabFailed="onTabFailed"
-      @tabSuccess="onTabSuccess"
-      @selectionChanged="onTabSuccess"
-    />
+    <div class="input-container">
+      <div class="dropdown" v-if="completions.length > 0">
+        <a
+          v-for="(completion, i) in completions"
+          href="#"
+          v-bind:key="i"
+          v-bind:class="{ active: current == i }"
+          @click="() => chooseCompletion(i)"
+        >
+          {{ completion }}
+        </a>
+      </div>
 
-    <div>
-      <a
-        v-for="(completion, i) in completions"
-        v-bind:key="i"
-        v-bind:class="{ active: current == i }"
-        @click="() => chooseCompletion(i)"
-      >
-        {{ completion }}
-      </a>
+      <tab-complete-input
+        id="tabHomeInput"
+        ref="input"
+        v-model="text"
+        :data-source="names"
+        @tabFailed="onTabFailed"
+        @tabEnded="onTabFailed"
+        @tabSuccess="onTabSuccess"
+        @selectionChanged="onTabSuccess"
+      />
     </div>
   </div>
 </template>

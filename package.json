@@ -13,8 +13,6 @@
     "lint": "vue-cli-service lint",
     "build:bundle": "microbundle build --compress --tsconfig tsconfig.lib.json"
   },
-  "source": "src/tab-complete-input.ts",
-  "typings": "out/tab-complete-input.d.ts",
   "main": "out/tab-complete-input.umd.js",
   "module": "out/tab-complete-input.modern.module.js",
   "unpkg": "out/tab-complete-input.umd.js",
@@ -42,6 +40,7 @@
     "faker": "^5.1.0",
     "microbundle": "^0.12.0-next.9",
     "netlify-cli": "^2.64.1",
+    "prerender-spa-plugin": "^3.2.1",
     "prettier": "^1.19.1",
     "prismjs": "^1.21.0",
     "raw-loader": "^4.0.1",
@@ -49,6 +48,7 @@
     "typescript": "~3.9.3",
     "vue": "^3.0.0-0",
     "vue-cli-plugin-markdown": "~0.1.2",
+    "vue-cli-plugin-prerender-spa": "~1.1.6",
     "vue-cli-plugin-tailwindcss": "~0.1.1",
     "vue-router": "^4.0.0-0"
   },
@@ -63,5 +63,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
-  }
+  },
+  "source": "src/tab-complete-input.ts",
+  "typings": "out/tab-complete-input.d.ts"
 }

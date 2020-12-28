@@ -71,5 +71,8 @@
     "url": "git+https://github.com/rymate1234/tab-complete-input-vue.git"
   },
   "source": "src/tab-complete-input.ts",
-  "typings": "out/tab-complete-input.d.ts"
+  "typings": "out/tab-complete-input.d.ts",
+  "dependencies": {
+    "jest-junit": "^12.0.0"
+  }
 }

@@ -1,6 +1,5 @@
 import TrieJS from "./trie";
-import { defineComponent, h, PropType } from "vue";
-
+import { defineComponent, h, PropType, nextTick } from 'vue'
 interface FormatResult {
   word: string;
   prev: string;
@@ -198,7 +197,7 @@ export default defineComponent({
       this.localValue =
         this.localValue.slice(0, newPos) + this.localValue.slice(newPos + 1);
       this.updateValue(this.localValue);
-      this.$nextTick(() => this.selectRange(newPos, newPos));
+      nextTick(() => this.selectRange(newPos, newPos));
 
       const event: CompleteEvent = {
         completions: this.possible,

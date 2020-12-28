@@ -1,5 +1,5 @@
 import TrieJS from "./trie";
-import { PropType } from "vue";
+import { PropType } from 'vue';
 interface FormatResult {
     word: string;
     prev: string;
@@ -26,11 +26,9 @@ export interface CompleteEvent {
 }
 export declare type FormatFunction = typeof formatFunction;
 export declare type DataFunction = typeof dataFunction;
-declare type DataFunctionProp = string[] | DataFunction;
 declare const _default: import("vue").DefineComponent<{
     dataSource: {
-        type: PropType<DataFunctionProp>;
-        default: () => any[];
+        default: () => string[];
     };
     format: {
         type: PropType<(word: string, prev: string, pos: number) => FormatResult>;
@@ -45,7 +43,7 @@ declare const _default: import("vue").DefineComponent<{
 }, unknown, Data, {}, {
     setData(array: string[]): void;
     getCurrentWord(): void;
-    getCompletions(): Promise<void>;
+    getCompletions(e?: KeyboardEvent): Promise<void>;
     selectCompletion(index?: number): void;
     emitEvents(e?: KeyboardEvent): void;
     handleTabPressed(e?: KeyboardEvent): Promise<void>;
@@ -54,13 +52,13 @@ declare const _default: import("vue").DefineComponent<{
     updateValue(value: string): void;
     selectRange(start: number, end: number): void;
     getCursorPos(): any;
-}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("tabFailed" | "tabSuccess" | "selectionChanged" | "update:modelValue")[], "tabFailed" | "tabSuccess" | "selectionChanged" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
-    dataSource: DataFunctionProp;
+}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("tab-failed" | "tab-success" | "tab-ended" | "selection-changed" | "update:modelValue")[], "tab-failed" | "tab-success" | "tab-ended" | "selection-changed" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
+    dataSource: string[];
     format: (word: string, prev: string, pos: number) => FormatResult;
     modelValue: string;
     startCompletionChar: string;
 } & {}>, {
-    dataSource: DataFunctionProp;
+    dataSource: string[];
     format: (word: string, prev: string, pos: number) => FormatResult;
     modelValue: string;
     startCompletionChar: string;

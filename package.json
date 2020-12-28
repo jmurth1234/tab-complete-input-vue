@@ -8,11 +8,12 @@
     "email": "supermarioryan@gmail.com"
   },
   "scripts": {
-    "serve": "vue-cli-service serve ./example-src/main.ts",
-    "build": "vue-cli-service build ./example-src/main.ts",
-    "test:unit": "vue-cli-service test:unit",
+    "dev": "vue-cli-service serve ./example-src/main.ts",
+    "dev:vercel": "vercel dev",
+    "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build:bundle": "microbundle build --compress --tsconfig tsconfig.lib.json"
+    "build": "vue-cli-service build ./example-src/main.ts",
+    "build:lib": "microbundle build --compress --tsconfig tsconfig.lib.json"
   },
   "main": "out/tab-complete-input.umd.js",
   "module": "out/tab-complete-input.modern.module.js",
@@ -50,6 +51,7 @@
     "raw-loader": "^4.0.1",
     "tailwindcss": "^1.8.10",
     "typescript": "~3.9.3",
+    "vercel": "^21.0.1",
     "vue": "^3.0.0-0",
     "vue-cli-plugin-markdown": "~0.1.2",
     "vue-cli-plugin-prerender-spa": "~1.1.6",

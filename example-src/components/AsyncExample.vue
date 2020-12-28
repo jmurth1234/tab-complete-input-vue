@@ -17,7 +17,7 @@
 import { staticList } from "./shared";
 import TabCompleteInput from "../../src/tab-complete-input";
 
-const api = "/.netlify/functions/get-names";
+const api = "/api/get-names";
 
 export default {
   components: { TabCompleteInput },

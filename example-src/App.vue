@@ -3,24 +3,28 @@
     <header class="main">
       <h1>
         {{
-          $route.path === "/docs" ? "Documentation" : "Vue Tab Complete Input"
+          $route.path.includes("docs")
+            ? "Documentation"
+            : "Vue Tab Complete Input"
         }}
       </h1>
 
-      <Button v-if="$route.path === '/'" to="/docs">
-        <span>View the Docs</span>
-      </Button>
+      <nav>
+        <Button v-if="!$route.path.includes('docs')" to="/docs">
+          <span>View the Docs</span>
+        </Button>
 
-      <Button v-if="$route.path === '/docs'" to="/">
-        <span>Back</span>
-      </Button>
+        <Button v-if="$route.path.includes('docs')" to="/">
+          <span>Back</span>
+        </Button>
 
-      <Button
-        href="https://github.com/rymate1234/tab-complete-input-vue"
-        target="_blank"
-      >
-        <span>GitHub</span>
-      </Button>
+        <Button
+          href="https://github.com/rymate1234/tab-complete-input-vue"
+          target="_blank"
+        >
+          <span>GitHub</span>
+        </Button>
+      </nav>
     </header>
 
     <router-view />
@@ -44,12 +48,12 @@ export default {
   color: #2c3e50;
 }
 
-#nav a {
+nav a {
   font-weight: bold;
   color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
+nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>

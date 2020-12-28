@@ -26,7 +26,7 @@ html, body {
 }
 
 header.main {
-  @apply p-4 text-center flex align-middle content-center justify-center items-center;
+  @apply p-4 text-center flex align-middle content-center justify-center items-center flex-col;
 }
 
 header.main h1 {

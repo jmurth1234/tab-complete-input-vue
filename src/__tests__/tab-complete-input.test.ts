@@ -3,10 +3,15 @@
 import { mount } from "@vue/test-utils";
 import Input from "../tab-complete-input";
 
-describe("Vue Tab Complete Input", () => {
+describe("Vue Tab Complete Input: ", () => {
   it("has an input", () => {
     const wrapper = mount(Input);
     expect(wrapper.find("input").exists()).toBe(true);
+  });
+
+  it("should be a failing test", () => {
+    const wrapper = mount(Input);
+    expect(wrapper.find("input").exists()).toBe(false);
   });
 
   it("should accept an array of names and populate a trie", () => {

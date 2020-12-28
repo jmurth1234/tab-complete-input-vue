@@ -3,7 +3,7 @@
     <header>
       <h3>Example</h3>
 
-      <Button @click="this.showingSource = !this.showingSource">
+      <Button @click="showingSource = !showingSource">
         {{ !showingSource ? "View Code" : "View Component" }}
       </Button>
     </header>

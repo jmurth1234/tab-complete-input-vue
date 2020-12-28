@@ -18,7 +18,7 @@ steps:
 - script: |
     yarn install
     yarn lint
-    yarn test:unit
+    yarn test
   displayName: 'npm install and test'
 
 - task: PublishTestResults@2

@@ -47,6 +47,8 @@ describe("Trie", () => {
       trie.add("/help");
 
       // should still find zzz
+      expect(trie.contains("zzzzzzz")).toBe(true);
+
       const items = trie.find("/");
       expect(items.pop()).toBe("/help");
 

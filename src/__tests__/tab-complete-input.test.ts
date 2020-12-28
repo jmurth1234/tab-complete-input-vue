@@ -9,11 +9,6 @@ describe("Vue Tab Complete Input: ", () => {
     expect(wrapper.find("input").exists()).toBe(true);
   });
 
-  it("should be a failing test", () => {
-    const wrapper = mount(Input);
-    expect(wrapper.find("input").exists()).toBe(false);
-  });
-
   it("should accept an array of names and populate a trie", () => {
     const wrapper = mount(Input, {
       props: {

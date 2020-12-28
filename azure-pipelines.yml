@@ -16,9 +16,9 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
-    npm run lint
-    npm run test:unit
+    yarn install
+    yarn lint
+    yarn test:unit
   displayName: 'npm install and test'
 
 - task: PublishTestResults@2

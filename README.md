@@ -4,7 +4,7 @@ This is a tab completable `<input>` component for Vue.js. It supports fetching d
 
 The source code is essentially a port of the [tab-complete](https://www.npmjs.com/package/tab-complete) npm package to a vue friendly format, meaning it's a single vue module and removes the jQuery dependency.
 
-### [Demo and docs](https://vue-tab-complete-input.netlify.com/)
+### [Demo and docs](https://tab-complete-input-vue.vercel.app/)
 
 ## Installing
 The package is available from npm as vue-tab-complete-input. To install, simply run

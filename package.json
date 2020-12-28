@@ -65,7 +65,7 @@
   "bugs": {
     "url": "https://github.com/rymate1234/tab-complete-input-vue/issues"
   },
-  "homepage": "https://vue-tab-complete-input.netlify.com",
+  "homepage": "https://tab-complete-input-vue.vercel.app",
   "license": "MIT",
   "repository": {
     "type": "git",

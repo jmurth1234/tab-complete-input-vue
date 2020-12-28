@@ -13,7 +13,10 @@
     "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "build": "vue-cli-service build ./example-src/main.ts",
-    "build:lib": "microbundle build --compress --tsconfig tsconfig.lib.json"
+    "build:lib": "microbundle build --compress --tsconfig tsconfig.lib.json",
+    "preversion": "yarn test",
+    "version": "yarn build:lib && git add -A out",
+    "postversion": "git push --tags && yarn publish . --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "main": "out/tab-complete-input.umd.js",
   "module": "out/tab-complete-input.modern.module.js",

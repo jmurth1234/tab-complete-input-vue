@@ -18,10 +18,11 @@ steps:
 - script: |
     npm install
     npm run lint
+    npm run test:unit
   displayName: 'npm install and test'
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: JUnit
-    testResultsFiles: '**/junit.xml'
+# - task: PublishTestResults@2
+#   condition: succeededOrFailed()
+#   inputs:
+#     testRunner: JUnit
+#     testResultsFiles: '**/junit.xml'

@@ -25,10 +25,10 @@
         ref="input"
         v-model="text"
         :data-source="names"
-        @tabFailed="onTabFailed"
-        @tabEnded="onTabFailed"
-        @tabSuccess="onTabSuccess"
-        @selectionChanged="onTabSuccess"
+        @tab-failed="onTabFailed"
+        @tab-ended="onTabFailed"
+        @tab-success="onTabSuccess"
+        @selection-changed="onTabSuccess"
       />
     </div>
   </div>

@@ -71,7 +71,9 @@ class TrieJS {
   constructor(opts?: Options) {
     // mixin optional override options
     for (const key in opts) {
-      if (opts.hasOwnProperty(key)) {
+      const hasProp = Object.prototype.hasOwnProperty.call(opts, key);
+
+      if (hasProp) {
         this.options[key] = opts[key];
       }
     }
@@ -253,7 +255,8 @@ class TrieJS {
     let node;
     while ((node = nodeArray.pop())) {
       for (const newNode in node) {
-        if (node.hasOwnProperty(newNode)) {
+        const hasProp = Object.prototype.hasOwnProperty.call(node, newNode);
+        if (hasProp) {
           if (newNode == "$d") {
             res = this.options.merge.call(this, res, node.$d, word);
           } else if (newNode != "$s") {

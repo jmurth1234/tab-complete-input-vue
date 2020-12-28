@@ -51,7 +51,13 @@ function isDataFunction(data: DataFunctionProp): data is DataFunction {
 export default defineComponent({
   name: "tab-complete-input",
 
-  emits: ["tabFailed", "tabSuccess", "tabEnded", "selectionChanged", "update:modelValue"],
+  emits: [
+    "tab-failed",
+    "tab-success",
+    "tab-ended",
+    "selection-changed",
+    "update:modelValue"
+  ],
 
   data() {
     return {
@@ -64,34 +70,32 @@ export default defineComponent({
       possible: false,
       saved: false,
       localValue: this.modelValue,
-      isTypeahead: true
+      isTypeahead: false
     } as Data;
   },
 
   render() {
-    const self = this;
+    const onKeydown: any[] = [this.tabComplete];
 
-    let onKeydown: any[] = [ this.tabComplete ]
-
-    if (typeof(this.$attrs.onKeydown) === 'function') {
-      onKeydown.push(this.$attrs.onKeydown)
+    if (typeof this.$attrs.onKeydown === "function") {
+      onKeydown.push(this.$attrs.onKeydown);
     }
 
     if (Array.isArray(this.$attrs.onKeydown)) {
-      onKeydown.push(...this.$attrs.onKeydown)
+      onKeydown.push(...this.$attrs.onKeydown);
     }
 
     return h("input", {
       ref: "input",
       ...this.$props,
       ...this.$attrs,
-      value: self.modelValue,
-      "onUpdate:modelValue": (value: string) => (self.localValue = value),
+      value: this.modelValue,
+      "onUpdate:modelValue": (value: string) => (this.localValue = value),
       onKeydown,
-      onInput(event: InputEvent) {
+      onInput: (event: InputEvent) => {
         const elem = event.target as HTMLInputElement;
-        self.updateValue(elem.value);
-        self.typeaheadCompletion();
+        this.updateValue(elem.value);
+        this.typeaheadCompletion();
       }
     });
   },
@@ -104,8 +108,7 @@ export default defineComponent({
 
   props: {
     dataSource: {
-      type: Object as PropType<DataFunctionProp>,
-      default: () => []
+      default: (): string[] => []
     },
     format: {
       type: Function as PropType<typeof formatFunction>,
@@ -203,7 +206,7 @@ export default defineComponent({
         current: this.index
       };
 
-      this.$emit("selectionChanged", event);
+      this.$emit("selection-changed", event);
     },
 
     emitEvents(e?: KeyboardEvent) {
@@ -215,16 +218,15 @@ export default defineComponent({
       };
 
       if (!this.possible) {
-        this.$emit(this.saved ? "tabFailed" : "tabEnded", event);
+        this.$emit(this.saved ? "tab-failed" : "tab-ended", event);
       } else {
-        this.$emit("tabSuccess", event);
+        this.$emit("tab-success", event);
       }
     },
 
     async handleTabPressed(e?: KeyboardEvent) {
       if (!this.saved) {
         e?.preventDefault();
-
         await this.getCompletions(e);
       } else {
         this.index++;
@@ -243,7 +245,6 @@ export default defineComponent({
 
     async tabComplete(e: KeyboardEvent) {
       if (!e) return;
-
       this.getCurrentWord();
 
       if (e.key === "tab" || e.keyCode === 9) {

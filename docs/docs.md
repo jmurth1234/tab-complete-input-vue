@@ -93,7 +93,7 @@ The value of the `<input>` as a string. This must be bound using v-model.
 
 ### `startCompletionChar`
 
-When a word starts with the `startCompletionChar`, the component will start tab completing in the background. When combined with events like `tabSuccess`, this can be used to help build alternative UIs for completion using this component.
+When a word starts with the `startCompletionChar`, the component will start tab completing in the background. When combined with events like `tab-success`, this can be used to help build alternative UIs for completion using this component.
 
 ## Programatically tab competing
 
@@ -126,7 +126,7 @@ export default {
 
 For more fine grained control over completion behavior, you can use the following methods to build your own behaviour:
 
- - `getCompletions()` -- Fetches data from the data source if it's a function, and then checks whether the current word is in the list of completions. Emits either `tabFailed` or `tabSuccess` 
+ - `getCompletions()` -- Fetches data from the data source if it's a function, and then checks whether the current word is in the list of completions. Emits either `tab-failed` or `tab-success` 
  - `selectCompletion(index?: number)` -- Selects a completion from the list of valid current completions, and applies it to the current word. If a number is passed, the word at that position will be selected as the completion.
 
 ## Event Handlers
@@ -147,10 +147,10 @@ All event handlers supported by normal input panels are supported by this compon
 
 Additionally, four new event handlers are defined by the component:
 
- - `tabSuccess` -- Emitted when an attempt to get completions returns results
- - `tabFailed` -- Emitted when an attempt to get completions returns no results
- - `tabEnded` -- Emitted when the user has ended completions on the current word
- - `selectionChanged` -- Emitted after a new completion is selected.
+ - `tab-success` -- Emitted when an attempt to get completions returns results
+ - `tab-failed` -- Emitted when an attempt to get completions returns no results
+ - `tab-ended` -- Emitted when the user has ended completions on the current word
+ - `selection-changed` -- Emitted after a new completion is selected.
 
 All events emitted by the component have at most 4 properties:
 

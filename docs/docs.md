@@ -1,21 +1,15 @@
----
-sidebar: auto
----
-
-# Documentation and Examples
-
 ## Usage
 
 Firstly, you'll need to load the component into vue:
 
-``` JavaScript
+``` javascript
 import TabCompleteInput from "vue-tab-complete-input"
 Vue.component( 'tab-complete-input', TabCompleteInput );
 ```
 
 Alternatively, when defining a vue component it's used in, include it in the list of components:
 
-``` JavaScript
+``` javascript
 import TabCompleteInput from "vue-tab-complete-input"
 
 export default {
@@ -37,11 +31,9 @@ Now you can use it as a basic `<input>` in your html, with support for v-model w
 <tab-complete-input v-model="text" :data-source="list" />
 ```
 
-<BasicExample />
-
-Note: you _must_ set a `v-model` for any tab completion to work.
-
-Full examples of the components used within these docs are available in this folder [`~/docs/.vuepress/components`](https://github.com/rymate1234/tab-complete-input-vue/tree/master/docs/.vuepress/components)
+<ExampleContainer source="BasicExample.vue">
+  <BasicExample />
+</ExampleContainer>
 
 ## Properties
 
@@ -53,7 +45,7 @@ In the case of the array, the contents of the array are loaded into the tab comp
 
 In the case of the method, the method is called each time a user starts tab completing a word, and will only run when a user starts completing another word.
 Internally, this method has an await on it, meaning you can pass in a async method and it will be awaited. If you need to pass in a callback function, you will 
-need to use something like `util.promisify` as these are not otherwsie supported
+need to use something like `util.promisify` as these are not otherwise supported
 
 When calling the method, two arguments are passed to it - the current word being completed and the position within the string.
 
@@ -64,7 +56,9 @@ async asyncData (word, position) {
 }, 
 ```
 
-<AsyncExample />
+<ExampleContainer source="AsyncExample.vue">
+  <AsyncExample />
+</ExampleContainer>
 
 ### `format`
 
@@ -83,15 +77,23 @@ getFormat (word, prev, position) {
 
 ```
 
-<FormatExample />
+<ExampleContainer source="FormatExample.vue">
+  <FormatExample />
+</ExampleContainer>
 
 The method returns an object with two properties, `word` for the resulting format of the current word and `prev` for the resulting format of the previous word.
 
-### `value`
+### `modelValue`
 
 The value of the `<input>` as a string. This must be bound using v-model.
 
-<BasicExample :showText='true' />
+<ExampleContainer source="ValueExample.vue">
+  <ValueExample />
+</ExampleContainer>
+
+### `startCompletionChar`
+
+When a word starts with the `startCompletionChar`, the component will start tab completing in the background. When combined with events like `tab-success`, this can be used to help build alternative UIs for completion using this component.
 
 ## Programatically tab competing
 
@@ -106,31 +108,57 @@ In order to do this, you can set a reference on the tab complete element in your
 You can then use that reference to perform the equivalent of pressing tab in the input box using any other method, for instance a tab button somewhere on the page. 
 
 ```html
- <button @click="tab">Tab</button>
- 
- <script>
-  export default {
-    tab (e) {
-      e.preventDefault()
-      this.$refs.externalInput.tabComplete()
-    },
-  }
- </script>
+<button @click="tab">Tab</button>
+
+<script>
+export default {
+  tab (e) {
+    e.preventDefault()
+    this.$refs.externalInput.handleTabPressed()
+  },
+}
+</script>
 ```
 
-<BasicExample :showTab='true' />
+<ExampleContainer source="TabExample.vue">
+  <TabExample />
+</ExampleContainer>
+
+For more fine grained control over completion behavior, you can use the following methods to build your own behaviour:
+
+ - `getCompletions()` -- Fetches data from the data source if it's a function, and then checks whether the current word is in the list of completions. Emits either `tab-failed` or `tab-success` 
+ - `selectCompletion(index?: number)` -- Selects a completion from the list of valid current completions, and applies it to the current word. If a number is passed, the word at that position will be selected as the completion.
 
 ## Event Handlers
 
 All event handlers supported by normal input panels are supported by this component.
 
 ```html
-  <tab-complete-input ref="externalInput" 
-    id="tabInput" 
-    v-model="text" 
-    :data-source="names" 
-    v-on:keydown.13="enterText" 
-    v-on:keyup="logCurrent" />
+<tab-complete-input ref="externalInput" 
+  v-model="text" 
+  :data-source="names" 
+  @keydown.enter="enterText"
+  v-on:keyup="logCurrent" />
 ```
 
-<BasicExample :testEvents='true' />
+<ExampleContainer source="EventsExample.vue">
+  <EventsExample />
+</ExampleContainer>
+
+Additionally, four new event handlers are defined by the component:
+
+ - `tab-success` -- Emitted when an attempt to get completions returns results
+ - `tab-failed` -- Emitted when an attempt to get completions returns no results
+ - `tab-ended` -- Emitted when the user has ended completions on the current word
+ - `selection-changed` -- Emitted after a new completion is selected.
+
+All events emitted by the component have at most 4 properties:
+
+ - `original` -- The keyboard event that caused this event to eventually happen, if applicable
+ - `completions` -- The list of valid completions, or a `false` boolean 
+ - `current` -- The current selected index
+ - `word` -- The word being completed
+
+<ExampleContainer :source="'HomeExample.vue'">
+  <HomeExample />
+</ExampleContainer>
